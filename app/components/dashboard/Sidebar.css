@@ -1,0 +1,38 @@
+.sidebar{
+    width: 304px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  .nav-link{
+    gap: 10px;
+  }
+  
+  .nav-icon{
+    margin-right: 0 !important;
+  }
+
+  .sidebar-footer {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    margin-top: auto;
+  }
+  
+  .user-info {
+    margin-left: 10px;
+  }
+
+
+  
+  .popover-menu {
+    position: relative;
+    display: inline-block;
+  }
+  

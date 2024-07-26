@@ -1,0 +1,22 @@
+.login-page{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c1e3e4;
+}
+
+.login-picture{
+    display: block;
+    margin-top: 2.5rem;
+    border-radius: 0%;
+    margin-left: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .login-picture{
+        display: none;
+    }
+    
+}

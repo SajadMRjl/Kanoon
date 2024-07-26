@@ -1,0 +1,10 @@
+.sidebar{
+    position: absolute;
+    height: 100vh;
+}
+
+.main{
+    margin-right: 256px;
+    height: 100vh;
+    background-color: #F3F4F7;
+}
