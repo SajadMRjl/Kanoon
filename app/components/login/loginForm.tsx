@@ -16,6 +16,7 @@ import "@coreui/coreui-pro/dist/css/coreui.min.css";
 import "./loginForm.css";
 import LoginApi from "@/app/api/login";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -27,6 +28,8 @@ export default function LoginForm() {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const router = useRouter();
+
   useEffect(() => {
     usernameRef.current.focus();
   }, []);
@@ -36,8 +39,7 @@ export default function LoginForm() {
     const status = await LoginApi({ username, password });
 
     if (status === 200) {
-      // navigate to dashboard
-      console.log("dashboard");
+      router.push("/dashboard");
     } else if (status === 401 || status === 422) {
       setCallout("نام کاربری یا رمز عبور اشتباه می باشد.");
     } else {

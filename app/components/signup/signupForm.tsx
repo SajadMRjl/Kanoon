@@ -17,7 +17,7 @@ import "./signupForm.css";
 import SignupApi from "@/app/api/signup";
 import Link from "next/link";
 import { ValidateEmail, ValidatePassword } from "../validation";
-import { stat } from "fs";
+import { useRouter } from "next/router";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -32,6 +32,8 @@ export default function LoginForm() {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
+  const router = useRouter();
+
   useEffect(() => {
     usernameRef.current.focus();
   }, []);
@@ -41,8 +43,7 @@ export default function LoginForm() {
     const status = await SignupApi({ username, email, password });
 
     if (status === 200) {
-      // navigate to dashboard
-      console.log("dashboard");
+      router.push("/dashboard");
     } else if (status === 401) {
       setCallout("نام");
     } else if (status === 500) {

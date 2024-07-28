@@ -1,0 +1,33 @@
+.page{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.page-header{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 35px;
+    margin-bottom: 4rem;
+}
+
+.add-survey-btn{
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row;
+    padding: 1rem;
+    background-color: #5046E540;
+    color: #5046E5
+}
+
+.add-survey-btn:hover{
+    background-color: #5046E560;
+    color: #5046E5
+}

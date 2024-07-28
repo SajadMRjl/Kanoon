@@ -1,34 +1,28 @@
 import axios, { AxiosError } from "axios";
+import { Survey } from "./postSurvey";
 
-interface User {
-  username: string;
-  email: string;
-  password: string;
+export interface Props {
+  id: number;
+  editedSurvey: Survey;
 }
 
-export default async function LoginApi({
-  username,
-  email,
-  password,
-}: User): Promise<number> {
+export default async function putSurvey({
+  id,
+  editedSurvey,
+}: Props): Promise<number> {
+  const access_token = localStorage.getItem("access_token");
+  const token_type = localStorage.getItem("token_type");
   const api = axios.create({
     baseURL: "http://localhost:8000/",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token_type} ${access_token}`,
     },
     withCredentials: false,
   });
 
   try {
-    const response = await api.post("users/register", {
-      username,
-      email,
-      password,
-    });
-    if (response.status === 200) {
-      localStorage.setItem("access_token", response.data.access_token);
-      localStorage.setItem("token_type", response.data.token_type);
-    }
+    const response = await api.put(`/surveys/${id}`, editedSurvey);
     return response.status;
   } catch (error) {
     if (axios.isAxiosError(error)) {

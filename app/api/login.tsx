@@ -10,7 +10,7 @@ export default async function LoginApi({
   password,
 }: User): Promise<number> {
   const api = axios.create({
-    // baseURL: "http://localhost:8000/",
+    baseURL: "http://localhost:8000/",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
@@ -18,7 +18,7 @@ export default async function LoginApi({
   });
 
   try {
-    const response = await api.post("api/users/login", { username, password });
+    const response = await api.post("users/login", { username, password });
     if (response.status === 200) {
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("token_type", response.data.token_type);

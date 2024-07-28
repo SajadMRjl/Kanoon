@@ -1,10 +1,19 @@
 .sidebar{
-    position: absolute;
+    position: fixed;
     height: 100vh;
 }
 
 .main{
-    margin-right: 256px;
+    margin-right: 304px;
     height: 100vh;
     background-color: #F3F4F7;
+    padding: 2rem;
+}
+
+
+@media screen and (max-width: 768px) {
+    .main{
+        margin-right: 4rem;
+    }
+    
 }

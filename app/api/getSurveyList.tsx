@@ -1,33 +1,31 @@
 import axios, { AxiosError } from "axios";
 
-interface User {
-  username: string;
-  email: string;
-  password: string;
+export interface Survey {
+  title: string;
+  description: string;
+  start_time: string;
+  end_time: string;
+  isPublic: boolean;
+  viewableByAuthorOnly: boolean;
+  id: number;
 }
 
-export default async function LoginApi({
-  username,
-  email,
-  password,
-}: User): Promise<number> {
+export default async function getSurveyList(): Promise<Survey[] | number> {
+  const access_token = localStorage.getItem("access_token");
+  const token_type = localStorage.getItem("token_type");
   const api = axios.create({
     baseURL: "http://localhost:8000/",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `${token_type} ${access_token}`,
     },
     withCredentials: false,
   });
 
   try {
-    const response = await api.post("users/register", {
-      username,
-      email,
-      password,
-    });
+    const response = await api.get("/surveys");
     if (response.status === 200) {
-      localStorage.setItem("access_token", response.data.access_token);
-      localStorage.setItem("token_type", response.data.token_type);
+      return response.data;
     }
     return response.status;
   } catch (error) {
