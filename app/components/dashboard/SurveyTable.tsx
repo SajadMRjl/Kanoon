@@ -6,6 +6,7 @@ import getSurvey from "@/app/api/getSurveyList";
 import moment from "jalali-moment";
 import EditSurvey from "./EditSurvey";
 import DeleteSurvey from "./DeleteSurvey";
+import { useRouter } from "next/navigation";
 
 interface Survey {
   id: number;
@@ -54,6 +55,8 @@ const SurveyTable = () => {
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [deleteId, setDeleteId] = useState(-1);
 
+  const router = useRouter();
+
   useEffect(() => {
     const fetchSurveys = async () => {
       const response = await getSurvey();
@@ -99,6 +102,8 @@ const SurveyTable = () => {
         tableFilter
         tableFilterLabel=""
         tableFilterPlaceholder="فیلتر"
+        clickableRows
+        onRowClick={(item) => router.push(`/survey/${item.id}/questions`)}
         tableProps={{
           responsive: true,
           hover: true,

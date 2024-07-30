@@ -1,0 +1,30 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.breadcrumb{
+    --cui-breadcrumb-item-active-color: rgb(59, 54, 142);
+    --cui-breadcrumb-divider: "<";
+    margin: .3rem;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.breadcrumb-item a{
+    text-decoration: none;
+    color: inherit;
+    padding: 3px 5px;
+}
+
+.breadcrumb-item a:hover{
+    background-color: #E5E7EB;
+    border-radius: 5px;
+}
+
+.active a{
+    font-weight: 600;
+}
+

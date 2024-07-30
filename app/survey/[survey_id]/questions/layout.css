@@ -1,0 +1,13 @@
+.question-bar{
+    height: 100%;
+    width: 350px;
+    position: fixed;
+    right: 0;
+}
+
+.preview{
+    margin-right: 350px;
+    padding: 2rem;
+    width: calc(100vw - 350px   );
+    height: calc(100vh - 51px);
+}

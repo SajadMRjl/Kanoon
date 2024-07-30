@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <div className="page">
       <div className="w-full">
-        <h2 className="page-header">پرسشنامه</h2>
+        <h2 className="page-header">پرسشنامه ها</h2>
         <SurveyTable />
       </div>
       <CButton
