@@ -1,16 +1,22 @@
 import axios, { AxiosError } from "axios";
 
-export interface Survey {
-  title: string;
-  description: string;
-  start_time: string;
-  end_time: string;
-  isPublic: boolean;
-  viewableByAuthorOnly: boolean;
-  id: number;
+export interface Option {}
+
+export interface InputProps {
+  survey_id: string;
+  questionText: string;
+  questionType: string;
+  correctAnswer: string;
+  options: string[];
 }
 
-export default async function getSurvey(id: number): Promise<Survey | number> {
+export default async function postQuestion({
+  survey_id,
+  questionText,
+  questionType,
+  correctAnswer,
+  options,
+}: InputProps): Promise<number> {
   const access_token = localStorage.getItem("access_token");
   const token_type = localStorage.getItem("token_type");
   const api = axios.create({
@@ -23,16 +29,18 @@ export default async function getSurvey(id: number): Promise<Survey | number> {
   });
 
   try {
-    const response = await api.get(`/surveys/${id}`);
-    if (response.status === 200) {
-      return response.data;
-    }
-    return response.status;
+    const response = await api.post(`/surveys/${survey_id}/add_question`, {
+      questionText,
+      questionType,
+      correctAnswer,
+      options,
+    });
+    return response.data.id;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
-        return axiosError.response.status;
+        return -1;
       }
     }
     return -1; // fail to connect to server

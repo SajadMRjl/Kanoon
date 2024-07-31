@@ -103,7 +103,9 @@ const SurveyTable = () => {
         tableFilterLabel=""
         tableFilterPlaceholder="فیلتر"
         clickableRows
-        onRowClick={(item) => router.push(`/survey/${item.id}/questions`)}
+        onRowClick={(item) =>
+          router.push(`/survey/${item.id}/questions/add/short-text`)
+        }
         tableProps={{
           responsive: true,
           hover: true,

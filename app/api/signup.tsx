@@ -12,7 +12,7 @@ export default async function LoginApi({
   password,
 }: User): Promise<number> {
   const api = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: "https://fastapi-azmon.chbk.run/",
     headers: {
       "Content-Type": "application/json",
     },

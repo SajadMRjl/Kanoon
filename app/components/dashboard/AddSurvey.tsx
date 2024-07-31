@@ -113,7 +113,7 @@ export default function AddSurvey({ visible, setVisible }: Props) {
               closeOnSelect
               cancelButton="بستن"
               confirmButton="تایید"
-              onDateChange={(value: Date) => setStartTime(value)}
+              onDateChange={(value: Date | null) => setStartTime(value)}
             />
             <CDatePicker
               placeholder="زمان پایان"
@@ -125,7 +125,7 @@ export default function AddSurvey({ visible, setVisible }: Props) {
               closeOnSelect
               cancelButton="بستن"
               confirmButton="تایید"
-              onDateChange={(value: Date) => setEndTime(value)}
+              onDateChange={(value: Date | null) => setEndTime(value)}
             />
           </div>
           <div className="form-checkbox">

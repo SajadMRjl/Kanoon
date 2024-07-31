@@ -42,7 +42,7 @@ export default function AddQuestion() {
         افزودن سوال
       </CDropdownToggle>
       <CDropdownMenu>
-        <CDropdownItem href={`/survey/${survey_id}/questions/short-text`}>
+        <CDropdownItem href={`/survey/${survey_id}/questions/add/short-text`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -56,7 +56,7 @@ export default function AddQuestion() {
           </svg>
           پاسخ تشریحی (کوتاه)
         </CDropdownItem>
-        <CDropdownItem href={`/survey/${survey_id}/questions/long-text`}>
+        <CDropdownItem href={`/survey/${survey_id}/questions/add/long-text`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -72,7 +72,9 @@ export default function AddQuestion() {
           پاسخ تشریحی (بلند)
         </CDropdownItem>
         <CDropdownDivider />
-        <CDropdownItem href={`/survey/${survey_id}/questions/multiple-choice`}>
+        <CDropdownItem
+          href={`/survey/${survey_id}/questions/add/multiple-choice`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"

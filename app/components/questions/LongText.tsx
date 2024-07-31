@@ -1,4 +1,4 @@
-import { CForm, CFormTextarea } from "@coreui/react";
+import { CForm, CFormTextarea, CButton } from "@coreui/react";
 import { useRef } from "react";
 import "./ShortText.css";
 
@@ -46,6 +46,22 @@ export default function LongText({ index }: InputProps) {
         onKeyUp={handleAnswerChange}
         onChange={handleAnswerChange}
       />
+      <div className="action-btn">
+        <CButton
+          type="button"
+          variant="outline"
+          className="confirm"
+        >
+          ذخیره
+        </CButton>
+        <CButton
+          type="button"
+          variant="outline"
+          className="cancel"
+        >
+          انصراف
+        </CButton>
+      </div>
     </CForm>
   );
 }

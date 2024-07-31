@@ -1,4 +1,4 @@
-import { CForm, CFormInput, CFormTextarea } from "@coreui/react";
+import { CForm, CButton, CFormTextarea } from "@coreui/react";
 import { useRef, useEffect } from "react";
 
 import "./MultiChoice.css";
@@ -59,6 +59,22 @@ export default function MultiChoice({ index }: InputProps) {
           setText={() => {}}
           text=""
         />
+      </div>
+      <div className="action-btn">
+        <CButton
+          type="button"
+          variant="outline"
+          className="confirm"
+        >
+          ذخیره
+        </CButton>
+        <CButton
+          type="button"
+          variant="outline"
+          className="cancel"
+        >
+          انصراف
+        </CButton>
       </div>
     </CForm>
   );

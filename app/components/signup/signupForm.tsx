@@ -17,7 +17,7 @@ import "./signupForm.css";
 import SignupApi from "@/app/api/signup";
 import Link from "next/link";
 import { ValidateEmail, ValidatePassword } from "../validation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -29,13 +29,13 @@ export default function LoginForm() {
   const [emailError, setEmailError] = useState(true);
   const [passwordError, setPasswordError] = useState(true);
 
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
   useEffect(() => {
-    usernameRef.current.focus();
+    if (usernameRef.current) usernameRef.current.focus();
   }, []);
 
   const handleLogin = async () => {
@@ -57,11 +57,13 @@ export default function LoginForm() {
 
   const handleTogglePasswordVisibility = () => {
     const passwordInput = passwordRef.current;
-    const cursorPosition = passwordInput.selectionStart;
+    const cursorPosition = passwordInput?.selectionStart;
     setShowPassword((prevShowPassword) => !prevShowPassword);
     setTimeout(() => {
-      passwordInput.setSelectionRange(cursorPosition, cursorPosition);
-      passwordInput.focus();
+      if (passwordInput && cursorPosition) {
+        passwordInput.setSelectionRange(cursorPosition, cursorPosition);
+        passwordInput.focus();
+      }
     }, 0);
   };
 

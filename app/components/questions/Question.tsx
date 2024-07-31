@@ -1,15 +1,25 @@
 import { CButton, CFormInput } from "@coreui/react";
 import "./Question.css";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface InputProps {
   index: number;
   text: string;
   hadleDelete: Function;
+  id: number;
 }
 
-export default function Question({ index, text, hadleDelete }: InputProps) {
+export default function Question({ index, text, hadleDelete, id }: InputProps) {
+  const router = useRouter();
+
+  const { survey_id } = useParams();
+
   return (
-    <div className="question-content">
+    <Link
+      className="question-content"
+      href={`survey/${survey_id}/questions/${id}/${text}`}
+    >
       <div className="index">{index}</div>
       <p>{text}</p>
       <CButton
@@ -28,6 +38,6 @@ export default function Question({ index, text, hadleDelete }: InputProps) {
           ></path>
         </svg>
       </CButton>
-    </div>
+    </Link>
   );
 }

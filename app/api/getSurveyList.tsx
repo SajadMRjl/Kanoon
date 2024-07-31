@@ -14,7 +14,7 @@ export default async function getSurveyList(): Promise<Survey[] | number> {
   const access_token = localStorage.getItem("access_token");
   const token_type = localStorage.getItem("token_type");
   const api = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: "https://fastapi-azmon.chbk.run/",
     headers: {
       "Content-Type": "application/json",
       Authorization: `${token_type} ${access_token}`,

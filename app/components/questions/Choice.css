@@ -23,3 +23,7 @@
     background-color: inherit;
     border: 0;
 }
+
+.choice .form-control:focus{
+    box-shadow: none;
+}

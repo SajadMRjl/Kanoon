@@ -2,8 +2,30 @@ import { CButton } from "@coreui/react";
 import "./QuestionBar.css";
 import AddQuestion from "./AddQuestion";
 import Question from "./Question";
+import { useState, useEffect } from "react";
+import getAllQuestion, { QuestionType } from "@/app/api/getAllQuestons";
+import { useParams } from "next/navigation";
 
 export default function QuestionBar() {
+  const [questions, setQuestion] = useState<QuestionType[] | null>(null);
+
+  const { survey_id } = useParams();
+  const surveyId = Array.isArray(survey_id) ? survey_id[0] : survey_id;
+
+  useEffect(() => {
+    async function fetchQuestions() {
+      const response = await getAllQuestion({ survey_id: surveyId });
+      if (typeof response === "number") {
+        console.log("error");
+      } else {
+        console.log(response);
+        setQuestion(response);
+      }
+    }
+
+    fetchQuestions();
+  }, [survey_id]);
+
   return (
     <div className="question-bar">
       <CButton
@@ -25,21 +47,18 @@ export default function QuestionBar() {
       </CButton>
       <hr className="line" />
       <div className="questions">
-        <Question
-          hadleDelete={() => {}}
-          index={1}
-          text="سوال 1"
-        />
-        <Question
-          hadleDelete={() => {}}
-          index={2}
-          text="سوال 2"
-        />
-        <Question
-          hadleDelete={() => {}}
-          index={3}
-          text="سوال 3"
-        />
+        {questions &&
+          questions?.map((question, index) => {
+            return (
+              <Question
+                key={question.id}
+                index={index + 1}
+                text={question.questionType}
+                hadleDelete={() => {}}
+                id={question.id}
+              />
+            );
+          })}
       </div>
       <AddQuestion />
       <hr className="line" />

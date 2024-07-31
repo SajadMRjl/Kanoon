@@ -28,3 +28,23 @@
     width: calc(50% - 10px);
     margin-right: 36px;
 }
+
+.action-btn{
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+    bottom: 60px;
+    left: 60px;
+}
+
+
+.action-btn .confirm{
+    background-color: #5046E5;
+    color: #FFFFFF;
+}
+
+.action-btn .cancel{
+    background-color: #5046E540;
+    color: #5046E5;
+}

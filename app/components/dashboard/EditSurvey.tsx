@@ -62,6 +62,7 @@ export default function EditSurvey(inputProps: Props) {
     }
 
     const editedSurvey: Survey = {
+      id: inputProps.id,
       title,
       description,
       start_time: startTime,
@@ -141,7 +142,9 @@ export default function EditSurvey(inputProps: Props) {
               closeOnSelect
               cancelButton="بستن"
               confirmButton="تایید"
-              onDateChange={(value: Date) => setStartTime(value.toISOString())}
+              onDateChange={(value: Date | null) =>
+                setStartTime(value?.toISOString() || "")
+              }
               date={startTime}
             />
             <CDatePicker
@@ -154,7 +157,9 @@ export default function EditSurvey(inputProps: Props) {
               closeOnSelect
               cancelButton="بستن"
               confirmButton="تایید"
-              onDateChange={(value: Date) => setEndTime(value.toISOString())}
+              onDateChange={(value: Date | null) =>
+                setEndTime(value?.toISOString() || "")
+              }
               date={endTime}
             />
           </div>
