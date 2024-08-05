@@ -12,7 +12,7 @@
 }
 
 .form h2{
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
 .input{
@@ -20,35 +20,38 @@
     
 }
 
-.input-group-text{
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+
+.normal-input{
+ margin-bottom: 1rem;
+
 }
 
-.form-control{
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
+.password-input{
+    margin-bottom: 1rem;
 
 }
 
 .password{
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.invalid-feedback{
+    margin-top: -.8rem;
+    margin-bottom: 1rem;
 }
 
 .show-pass{
+    order: 3;
     box-sizing: border-box;
     background-color: rgb(255, 255, 255);
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
     border: rgb(219, 223, 230) 1px solid;
 
     
@@ -102,9 +105,6 @@
     border-right-color: #e55353;
 }
 
-.password-input{
-    display: inline-flex !important;
-}
 
 
 .form-button:hover{
@@ -123,6 +123,24 @@
     font-weight: 500;
     opacity: 0.75;
     gap: 5px;
+}
+
+.name-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    margin-bottom: 1rem;
+}
+
+.name-input .first-name{
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.name-input .last-name{
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 

@@ -20,8 +20,8 @@ export default async function LoginApi({
   try {
     const response = await api.post("users/login", { username, password });
     if (response.status === 200) {
-      localStorage.setItem("access_token", response.data.access_token);
-      localStorage.setItem("token_type", response.data.token_type);
+      sessionStorage.setItem("access_token", response.data.access_token);
+      sessionStorage.setItem("token_type", response.data.token_type);
     }
     return response.status;
   } catch (error) {

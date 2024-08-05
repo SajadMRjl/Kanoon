@@ -1,0 +1,30 @@
+.btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 1rem 1.5rem;
+    
+}
+.btn-container .btn-item{
+    background-color: #1F2937;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    font-size: 14px;
+    padding: 10px;
+    flex: 1 1 calc(50% - 12px);
+    box-sizing: border-box;
+  }
+
+  
+  
+.btn-item:first-child, .btn-item:last-child {
+    flex: 1 1 100%;
+    justify-content: center;
+}
+
+
+

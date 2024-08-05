@@ -20,8 +20,12 @@ import { ValidateEmail, ValidatePassword } from "../validation";
 import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const [first_name, setFirstname] = useState("");
+  const [last_name, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [identity_code, setIdentityCode] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +44,15 @@ export default function LoginForm() {
 
   const handleLogin = async () => {
     setIsLoading(true);
-    const status = await SignupApi({ username, email, password });
+    const status = await SignupApi({
+      first_name,
+      last_name,
+      phone_number,
+      username,
+      email,
+      password,
+      identity_code,
+    });
 
     if (status === 200) {
       router.push("/dashboard");
@@ -70,44 +82,65 @@ export default function LoginForm() {
   return (
     <CForm className="form">
       <h2>ثبت نام</h2>
-      <CInputGroup className="mb-3">
-        <CInputGroupText>
-          <CIcon icon={cilUser} />
-        </CInputGroupText>
+      <div className="name-input">
         <CFormInput
-          id="username"
+          id="firstname"
+          className="first-name"
           ref={usernameRef}
           type="text"
-          placeholder="نام کاربری"
+          placeholder="نام"
           onChange={(e) => {
-            setUsername(e.target.value);
+            setFirstname(e.target.value);
             setCallout("");
           }}
-          dir={username ? "ltr" : "rtl"}
         />
-      </CInputGroup>
-      <CInputGroup className="mb-3">
-        <CInputGroupText>
-          <CIcon icon={cilAt} />
-        </CInputGroupText>
         <CFormInput
-          id="email"
-          type="email"
-          placeholder="ایمیل"
+          className="last-name"
+          id="lastname"
+          type="text"
+          placeholder="نام خانوادگی"
           onChange={(e) => {
-            setEmail(e.target.value);
-            setEmailError(ValidateEmail(email));
+            setLastname(e.target.value);
             setCallout("");
           }}
-          dir={email ? "ltr" : "rtl"}
-          invalid={!emailError}
-          feedbackInvalid="ایمیل معتبر نمی باشد."
         />
-      </CInputGroup>
+      </div>
+      <CFormInput
+        className="normal-input"
+        id="username"
+        type="text"
+        placeholder="نام کاربری"
+        onChange={(e) => {
+          setUsername(e.target.value);
+          setCallout("");
+        }}
+        dir={username ? "ltr" : "rtl"}
+      />
+      <CFormInput
+        className="normal-input"
+        id="phonenumber"
+        type="number"
+        placeholder="شماره موبایل"
+        onChange={(e) => {
+          setPhoneNumber(e.target.value);
+          setCallout("");
+        }}
+      />
+      <CFormInput
+        className="normal-input"
+        id="email"
+        type="email"
+        placeholder="ایمیل"
+        onChange={(e) => {
+          setEmail(e.target.value);
+          setEmailError(ValidateEmail(email));
+          setCallout("");
+        }}
+        dir={email ? "ltr" : "rtl"}
+        invalid={!emailError}
+        feedbackInvalid="ایمیل معتبر نمی باشد."
+      />
       <CInputGroup className="mb-3 password-input">
-        <CInputGroupText>
-          <CIcon icon={cilLockLocked} />
-        </CInputGroupText>
         <CFormInput
           className="password"
           id="password"
@@ -122,7 +155,6 @@ export default function LoginForm() {
           dir={password ? "ltr" : "rtl"}
           ref={passwordRef}
           invalid={!passwordError}
-          feedbackInvalid="رمزعبور معتبر نمی باشد."
         />
         <CButton
           type="button"
@@ -133,6 +165,16 @@ export default function LoginForm() {
           {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
         </CButton>
       </CInputGroup>
+      <CFormInput
+        className="normal-input"
+        id="identitycode"
+        type="text"
+        placeholder="کد شناسایی"
+        onChange={(e) => {
+          setIdentityCode(e.target.value);
+          setCallout("");
+        }}
+      />
       {callout && <CCallout color="danger">{callout}</CCallout>}
       <CLoadingButton
         className="form-button"

@@ -45,7 +45,6 @@ export default function QuestionBar() {
         </svg>
         صفحه خوش آمدگویی
       </CButton>
-      <hr className="line" />
       <div className="questions">
         {questions &&
           questions?.map((question, index) => {
@@ -60,8 +59,6 @@ export default function QuestionBar() {
             );
           })}
       </div>
-      <AddQuestion />
-      <hr className="line" />
       <CButton
         type="button"
         variant="outline"

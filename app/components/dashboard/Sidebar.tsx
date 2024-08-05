@@ -7,11 +7,11 @@ import {
   CSidebarHeader,
   CNavItem,
   CNavLink,
-  CAvatar,
 } from "@coreui/react";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import "./Sidebar.css";
 import { usePathname } from "next/navigation";
+import getMe, { User } from "@/app/api/getMe";
 
 const links = [
   {
@@ -42,6 +42,22 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      const response = await getMe();
+      if (typeof response === "number") {
+        console.log("error");
+      } else {
+        setName(response.first_name + " " + response.last_name);
+        setEmail(response.email);
+      }
+    };
+    fetchMe();
+  }, []);
+
   return (
     <CSidebar>
       <CSidebarHeader>
@@ -71,8 +87,8 @@ const Sidebar = () => {
       </CSidebarNav>
       <div className="sidebar-footer">
         <div className="user-info">
-          <p>User Name</p>
-          <div>username@email.com</div>
+          <p>{name}</p>
+          <div>{email}</div>
         </div>
         <div className="popover-menu">
           <svg

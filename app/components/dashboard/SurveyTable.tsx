@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CSmartTable } from "@coreui/react-pro";
 import "./SurveyTable.css";
 import { CButton } from "@coreui/react";
-import getSurvey from "@/app/api/getSurveyList";
+import getSurveyList from "@/app/api/getSurveyList";
 import moment from "jalali-moment";
 import EditSurvey from "./EditSurvey";
 import DeleteSurvey from "./DeleteSurvey";
@@ -59,7 +59,7 @@ const SurveyTable = () => {
 
   useEffect(() => {
     const fetchSurveys = async () => {
-      const response = await getSurvey();
+      const response = await getSurveyList();
       if (Array.isArray(response)) {
         const formattedSurveys = response.map((survey) => ({
           ...survey,
@@ -103,9 +103,7 @@ const SurveyTable = () => {
         tableFilterLabel=""
         tableFilterPlaceholder="فیلتر"
         clickableRows
-        onRowClick={(item) =>
-          router.push(`/survey/${item.id}/questions/add/short-text`)
-        }
+        onRowClick={(item) => router.push(`/survey/${item.id}/questions`)}
         tableProps={{
           responsive: true,
           hover: true,

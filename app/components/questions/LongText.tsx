@@ -1,5 +1,6 @@
 import { CForm, CFormTextarea, CButton } from "@coreui/react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
 import "./ShortText.css";
 
 interface InputProps {
@@ -13,19 +14,29 @@ function adjustHeight(el: HTMLTextAreaElement) {
 }
 
 export default function LongText({ index }: InputProps) {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
   const questionRef = useRef<HTMLTextAreaElement>(null);
   const answerRef = useRef<HTMLTextAreaElement>(null);
+
+  const router = useRouter();
+
+  const { survey_id, question_id } = useParams();
+  const surveyId = Array.isArray(survey_id) ? survey_id[0] : survey_id;
+  const questionId = Array.isArray(question_id) ? question_id[0] : question_id;
 
   const handleQuestionChange = () => {
     if (questionRef.current) {
       adjustHeight(questionRef.current);
     }
+    setQuestion(questionRef.current?.value || "");
   };
 
   const handleAnswerChange = () => {
     if (answerRef.current) {
       adjustHeight(answerRef.current);
     }
+    setAnswer(answerRef.current ? answerRef.current.value : "");
   };
 
   return (

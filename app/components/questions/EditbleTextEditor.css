@@ -1,0 +1,43 @@
+@font-face {
+  font-family: estedad;
+  src: url(../../../public/Estedad-Regular.ttf);
+}
+
+.editor{
+    width: 320px;
+}
+
+
+.ql-toolbar{
+    background-color: #f5f5f5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.ql-container{
+    height: 100px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow-y: auto;
+    font-family: estedad;
+}
+
+.ql-editor{
+  text-align: right;
+}
+
+
+/* width */
+ ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #9CA3AF;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 5px;
+  }

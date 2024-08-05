@@ -1,15 +1,17 @@
 import axios, { AxiosError } from "axios";
 
-export interface Survey {
-  title: string;
-  description: string;
-  start_time: string;
-  end_time: string;
-  isPublic: boolean;
-  viewableByAuthorOnly: boolean;
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  identity_code: string;
+  role: string;
 }
 
-export default async function postSurvey(survey: Survey): Promise<number> {
+export default async function getMe(): Promise<User | number> {
   const access_token = sessionStorage.getItem("access_token");
   const token_type = sessionStorage.getItem("token_type");
   const api = axios.create({
@@ -22,7 +24,10 @@ export default async function postSurvey(survey: Survey): Promise<number> {
   });
 
   try {
-    const response = await api.post("/surveys/", survey);
+    const response = await api.get(`/users/me`);
+    if (response.status === 200) {
+      return response.data;
+    }
     return response.status;
   } catch (error) {
     if (axios.isAxiosError(error)) {

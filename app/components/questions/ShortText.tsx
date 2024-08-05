@@ -7,7 +7,6 @@ import postQuestion from "@/app/api/postQuestion";
 
 interface InputProps {
   index: number;
-  questin_id?: number;
 }
 
 function adjustHeight(el: HTMLTextAreaElement) {
