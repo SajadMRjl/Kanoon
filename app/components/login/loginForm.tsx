@@ -41,7 +41,14 @@ export default function LoginForm() {
     const status = await LoginApi({ username, password });
 
     if (status === 200) {
-      router.push("/dashboard");
+      const role = sessionStorage.getItem("role");
+      if (role === "USER") {
+        router.push("/dashboard");
+      } else if (role === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else if (role === "SUPER_ADMIN") {
+        router.push("/superadmin/dashboard");
+      }
     } else if (status === 401 || status === 422) {
       setCallout("نام کاربری یا رمز عبور اشتباه می باشد.");
     } else {
@@ -64,8 +71,18 @@ export default function LoginForm() {
     }, 0);
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLFormElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevents form submission when pressing Enter
+      handleLogin(); // Calls the login function
+    }
+  };
+
   return (
-    <CForm className="form">
+    <CForm
+      className="login-form"
+      onKeyPress={handleKeyPress}
+    >
       <h2>ورود</h2>
       <CInputGroup className="mb-3">
         <CInputGroupText>

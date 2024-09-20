@@ -3,10 +3,6 @@ import axios, { AxiosError } from "axios";
 export interface Survey {
   title: string;
   description: string;
-  start_time: string;
-  end_time: string;
-  isPublic: boolean;
-  viewableByAuthorOnly: boolean;
   id: number;
 }
 

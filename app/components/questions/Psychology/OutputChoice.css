@@ -1,0 +1,52 @@
+.output-choice{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    background-color: #D1D5DB;
+    color: #1F2937;
+    border-radius: 5px;
+    min-width: 200px;
+    min-height: 32px;
+    border: 1px solid #1F2937;
+}
+
+.output-choice:hover{
+    cursor: pointer;
+}
+
+.output-choice .index{
+    margin: auto 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width: 36px;
+    background-color: #1F2937;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+
+.output-choice .text{
+    width: 100%;
+}
+
+.output-choice .form-check-input{
+    margin: auto 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width: 25.5px;
+    border-radius: 5px;
+    background-color: inherit;
+    border: 0px;
+
+}
+
+.output-choice .form-check-input:checked{
+    background-color: #1F2937;
+    color: #FFFFFF;
+}

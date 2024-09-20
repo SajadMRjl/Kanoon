@@ -140,7 +140,17 @@ export default function LoginForm() {
         invalid={!emailError}
         feedbackInvalid="ایمیل معتبر نمی باشد."
       />
-      <CInputGroup className="mb-3 password-input">
+      <CFormInput
+        className="normal-input"
+        id="identitycode"
+        type="number"
+        placeholder="کد ملی"
+        onChange={(e) => {
+          setIdentityCode(e.target.value);
+          setCallout("");
+        }}
+      />
+      <CInputGroup className="password-input">
         <CFormInput
           className="password"
           id="password"
@@ -165,23 +175,21 @@ export default function LoginForm() {
           {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
         </CButton>
       </CInputGroup>
-      <CFormInput
-        className="normal-input"
-        id="identitycode"
-        type="text"
-        placeholder="کد شناسایی"
-        onChange={(e) => {
-          setIdentityCode(e.target.value);
-          setCallout("");
-        }}
-      />
       {callout && <CCallout color="danger">{callout}</CCallout>}
       <CLoadingButton
         className="form-button"
         onClick={handleLogin}
         loading={isLoading}
         disabledOnLoading
-        disabled={!username || !password || !email}
+        disabled={
+          !username ||
+          !password ||
+          !email ||
+          !phone_number ||
+          !identity_code ||
+          !first_name ||
+          !last_name
+        }
       >
         ثبت نام
       </CLoadingButton>

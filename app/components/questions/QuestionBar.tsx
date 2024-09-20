@@ -1,33 +1,55 @@
 import { CButton } from "@coreui/react";
 import "./QuestionBar.css";
-import AddQuestion from "./AddQuestion";
 import Question from "./Question";
 import { useState, useEffect } from "react";
-import getAllQuestion, { QuestionType } from "@/app/api/getAllQuestons";
+import getAllQuestions, { QuestionType } from "@/app/api/getAllQuestions";
 import { useParams } from "next/navigation";
+import DeleteQuestion from "./DeleteQuestion";
 
-export default function QuestionBar() {
+interface InputProps {
+  setIndex: Function;
+  refresh: boolean;
+  setRefreshQuestions: Function;
+  setVisible: Function;
+}
+
+export default function QuestionBar({
+  setIndex,
+  refresh,
+  setRefreshQuestions,
+  setVisible,
+}: InputProps) {
   const [questions, setQuestion] = useState<QuestionType[] | null>(null);
+  const [sortedQuestion, setSortedQuestion] = useState<
+    QuestionType[] | undefined
+  >();
+  const [id, setID] = useState(-1);
+  const [deleteVisible, setDeleteVisible] = useState(false);
 
   const { survey_id } = useParams();
   const surveyId = Array.isArray(survey_id) ? survey_id[0] : survey_id;
 
   useEffect(() => {
     async function fetchQuestions() {
-      const response = await getAllQuestion({ survey_id: surveyId });
+      const response = await getAllQuestions({ survey_id: surveyId });
       if (typeof response === "number") {
-        console.log("error");
       } else {
-        console.log(response);
         setQuestion(response);
+        setIndex(response.length);
       }
+      setRefreshQuestions(false);
     }
 
     fetchQuestions();
-  }, [survey_id]);
+  }, [survey_id, refresh, deleteVisible]);
+
+  useEffect(() => {
+    setIndex(questions?.length ? questions?.length + 1 : 1);
+    setSortedQuestion(questions?.sort((a, b) => a.order - b.order));
+  }, [questions]);
 
   return (
-    <div className="question-bar">
+    <div className="question-bar overflow-y-scroll ">
       <CButton
         type="button"
         variant="outline"
@@ -46,15 +68,20 @@ export default function QuestionBar() {
         صفحه خوش آمدگویی
       </CButton>
       <div className="questions">
-        {questions &&
-          questions?.map((question, index) => {
+        {sortedQuestion &&
+          sortedQuestion?.map((question, index) => {
             return (
               <Question
                 key={question.id}
                 index={index + 1}
-                text={question.questionType}
-                hadleDelete={() => {}}
+                text={question.questionText}
+                handleDelete={(id: number) => {
+                  setID(id);
+                  setDeleteVisible(true);
+                }}
+                type={question.questionType}
                 id={question.id}
+                setVisible={setVisible}
               />
             );
           })}
@@ -80,6 +107,11 @@ export default function QuestionBar() {
         </svg>
         صفحه خروج
       </CButton>
+      <DeleteQuestion
+        visible={deleteVisible}
+        setVisible={setDeleteVisible}
+        id={id}
+      />
     </div>
   );
 }

@@ -1,30 +1,72 @@
 import { CButton, CFormInput } from "@coreui/react";
 import "./Question.css";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import {
+  useParams,
+  useRouter,
+  usePathname,
+  useSearchParams,
+} from "next/navigation";
+import { useCallback } from "react";
 
 interface InputProps {
   index: number;
   text: string;
-  hadleDelete: Function;
+  handleDelete: Function;
   id: number;
+  type: string;
+  setVisible: Function;
 }
 
-export default function Question({ index, text, hadleDelete, id }: InputProps) {
+export default function Question({
+  index,
+  text,
+  handleDelete,
+  id,
+  type,
+  setVisible,
+}: InputProps) {
   const router = useRouter();
-
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { survey_id } = useParams();
 
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const handleClick = () => {
+    router.push(
+      pathname +
+        "?" +
+        createQueryString("type", type) +
+        "&" +
+        createQueryString("action", "edit") +
+        "&" +
+        createQueryString("id", id.toString())
+    );
+    setVisible(true);
+  };
+
   return (
-    <Link
-      className="question-content"
-      href={`survey/${survey_id}/questions/${id}/${text}`}
+    <div
+      className="question-content hover:cursor-pointer"
+      onClick={handleClick}
     >
       <div className="index">{index}</div>
-      <p>{text}</p>
+      <div dangerouslySetInnerHTML={{ __html: text }} />
       <CButton
         variant="ghost"
         type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleDelete(id);
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +80,6 @@ export default function Question({ index, text, hadleDelete, id }: InputProps) {
           ></path>
         </svg>
       </CButton>
-    </Link>
+    </div>
   );
 }

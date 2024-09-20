@@ -7,10 +7,13 @@ import {
   CSidebarHeader,
   CNavItem,
   CNavLink,
+  CButton,
 } from "@coreui/react";
+import Image from "next/image";
+import Logo from "@/public/logo.png";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import "./Sidebar.css";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import getMe, { User } from "@/app/api/getMe";
 
 const links = [
@@ -29,14 +32,24 @@ const links = [
     href: "/dashboard",
   },
   {
-    text: "پرسشنامه ها",
+    text: "آزمون ها",
     icon: (
       <path
         fill="currentColor"
-        d="M8.813 0A1 1 0 0 0 8 1v1H4.406C3.606 2 3 2.606 3 3.406V24.5c0 .9.606 1.5 1.406 1.5H21.5c.8 0 1.406-.606 1.406-1.406V3.406c.1-.8-.512-1.406-1.312-1.406H18V1a1 1 0 0 0-1-1H9a1 1 0 0 0-.094 0a1 1 0 0 0-.094 0zM10 2h6v2h-6zM5 4h3v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4h3v20H5zm2 5v4h4V9zm1 1h2v2H8zm5 0v2h6v-2zm-6 5v4h4v-4zm6 1v2h6v-2z"
+        d="M14 15q.425 0 .738-.312t.312-.738t-.312-.737T14 12.9t-.737.313t-.313.737t.313.738T14 15m-.75-3.2h1.5q0-.725.15-1.062t.7-.888q.75-.75 1-1.212t.25-1.088q0-1.125-.788-1.837T14 5q-1.025 0-1.787.575T11.15 7.1l1.35.55q.225-.625.613-.937T14 6.4q.6 0 .975.338t.375.912q0 .35-.2.663t-.7.787q-.825.725-1.012 1.138T13.25 11.8M8 18q-.825 0-1.412-.587T6 16V4q0-.825.588-1.412T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm0-2h12V4H8zm-4 6q-.825 0-1.412-.587T2 20V6h2v14h14v2zM8 4v12z"
       ></path>
     ),
-    href: "/dashboard/surveys",
+    href: "/dashboard/exams",
+  },
+  {
+    text: "تست",
+    icon: (
+      <path
+        fill="currentColor"
+        d="M14 15q.425 0 .738-.312t.312-.738t-.312-.737T14 12.9t-.737.313t-.313.737t.313.738T14 15m-.75-3.2h1.5q0-.725.15-1.062t.7-.888q.75-.75 1-1.212t.25-1.088q0-1.125-.788-1.837T14 5q-1.025 0-1.787.575T11.15 7.1l1.35.55q.225-.625.613-.937T14 6.4q.6 0 .975.338t.375.912q0 .35-.2.663t-.7.787q-.825.725-1.012 1.138T13.25 11.8M8 18q-.825 0-1.412-.587T6 16V4q0-.825.588-1.412T8 2h12q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm0-2h12V4H8zm-4 6q-.825 0-1.412-.587T2 20V6h2v14h14v2zM8 4v12z"
+      ></path>
+    ),
+    href: "/dashboard/test",
   },
 ];
 
@@ -44,6 +57,8 @@ const Sidebar = () => {
   const pathname = usePathname();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchMe = async () => {
@@ -58,10 +73,20 @@ const Sidebar = () => {
     fetchMe();
   }, []);
 
+  const handleLogout = () => {
+    sessionStorage.clear();
+    router.push("/login");
+  };
+
   return (
     <CSidebar>
       <CSidebarHeader>
-        <h4>لوگو</h4>
+        <Image
+          src={Logo}
+          alt="لوگو"
+          width={90}
+          height={90}
+        />
       </CSidebarHeader>
       <CSidebarNav>
         {links.map((link) => {
@@ -91,18 +116,19 @@ const Sidebar = () => {
           <div>{email}</div>
         </div>
         <div className="popover-menu">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="currentColor"
-              d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2s-2 .9-2 2s.9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2"
-            ></path>
-          </svg>
-          {/* Implement your popover menu here */}
+          <CButton onClick={handleLogout}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z"
+              ></path>
+            </svg>
+          </CButton>
         </div>
       </div>
     </CSidebar>

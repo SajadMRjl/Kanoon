@@ -1,0 +1,21 @@
+.factor-container{
+    margin: 1rem;
+}
+
+.factor-container .factor-selector{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 8px
+}
+
+.factor-container .factor-selector .form-select{
+    direction: rtl;
+}
+
+.factor-container .add-factor{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}

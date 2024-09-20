@@ -7,8 +7,8 @@
     border-radius: .5rem;
     display: flex;
     flex-direction: column;
-
     justify-content: center;
+    box-shadow: 0 7px 10px 0 rgba(0, 0, 0, 0.3), 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .form h2{
@@ -22,12 +22,12 @@
 
 
 .normal-input{
- margin-bottom: 1rem;
+ margin-bottom: .75rem;
 
 }
 
 .password-input{
-    margin-bottom: 1rem;
+    margin-bottom: .75rem;
 
 }
 
@@ -40,8 +40,8 @@
 }
 
 .invalid-feedback{
-    margin-top: -.8rem;
-    margin-bottom: 1rem;
+    margin-top: -.3rem;
+    margin-bottom: 0.75rem;
 }
 
 .show-pass{
@@ -122,7 +122,7 @@
     font-size: .75rem;
     font-weight: 500;
     opacity: 0.75;
-    gap: 5px;
+    gap: 2px;
 }
 
 .name-input{
@@ -130,7 +130,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: stretch;
-    margin-bottom: 1rem;
+    margin-bottom: .75rem;
 }
 
 .name-input .first-name{

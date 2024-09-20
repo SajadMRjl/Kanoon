@@ -1,0 +1,48 @@
+.choice-container{
+    background-color: #D1D5DB;
+    color: #1F2937;
+    border-radius: 5px;
+    border: 1px solid #1F2937;
+
+}
+
+.choice-container .pchoice{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    height: 32px;
+}
+.pchoice .index{
+    margin: auto 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width: 36px;
+    background-color: #1F2937;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.pchoice .form-control{
+    color: inherit;
+    padding: 0;
+    background-color: inherit;
+    border: 0;
+}
+
+.pchoice .form-control:focus{
+    box-shadow: none;
+}
+
+.pchoice .btn{
+    padding: 0;
+    border: 0px;
+}
+.pchoice .last-btn{
+    padding-left: 5px;
+    border: 0px;
+}

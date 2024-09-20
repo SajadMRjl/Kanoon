@@ -22,6 +22,7 @@ export default async function LoginApi({
     if (response.status === 200) {
       sessionStorage.setItem("access_token", response.data.access_token);
       sessionStorage.setItem("token_type", response.data.token_type);
+      sessionStorage.setItem("role", response.data.role);
     }
     return response.status;
   } catch (error) {

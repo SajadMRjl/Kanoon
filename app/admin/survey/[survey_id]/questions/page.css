@@ -1,0 +1,15 @@
+.question-type-container{
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    background-color: #FFFFFF;
+    right: 0;
+}
+
+.question-bar-container{
+    background-color: #F3F4F7;
+    margin-right: 400px;
+    padding: 2rem;
+    width: calc(100vw - 400px);
+    height: calc(100vh - 71px);
+}

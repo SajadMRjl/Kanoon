@@ -2,10 +2,16 @@ import { CCloseButton, CButton } from "@coreui/react";
 import { useSearchParams, useParams } from "next/navigation";
 import { questionTypes } from "./QuestionTypes";
 import "./AddQuestionForm.css";
-import InputForm from "./ShortText/InputForm";
+import ShortTextInput from "./ShortText/InputForm";
+import LongTextInput from "./LongText/InputForm";
+import MultipleChoiceInput from "./MultipleChoice/InputForm";
+import PsychologyInput from "./Psychology/InputForm";
+import OpeningInput from "./IncomingPage/InputForm";
 import { CLoadingButton } from "@coreui/react-pro";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import postQuestion from "@/app/api/postQuestion";
+import putQuestion from "@/app/api/putQuestion";
+import { Option } from "@/app/api/getQuestion";
 
 interface InputProps {
   setVisible: Function;
@@ -14,6 +20,13 @@ interface InputProps {
   setQuestion: Function;
   answer: string;
   setAnswer: Function;
+  correctOption?: number;
+  setCorrectOption: Function;
+  options: Option[];
+  setOptions: Function;
+  point?: number;
+  setPoint: Function;
+  setRefreshQuestions: Function;
 }
 
 export default function AddQuestionForm({
@@ -23,16 +36,46 @@ export default function AddQuestionForm({
   setQuestion,
   answer,
   setAnswer,
+  correctOption,
+  setCorrectOption,
+  options,
+  setOptions,
+  point,
+  setPoint,
+  setRefreshQuestions,
 }: InputProps) {
   const { survey_id } = useParams();
   const surveyId = Array.isArray(survey_id) ? survey_id[0] : survey_id;
+
   const params = useSearchParams();
   const questionType = params.get("type") || "";
   const questionheder = questionTypes.find((q) => q.type === questionType);
+  const questionAction = params.get("action") || "";
+  const question_id = params.get("id") || "";
 
   const [loading, setLoading] = useState(false);
 
   const handleClose = () => {
+    setQuestion("");
+    setAnswer("");
+    setPoint(undefined);
+    setCorrectOption(undefined);
+    setOptions([
+      {
+        optionText: "",
+        questionId: question_id,
+        factorImpacts: [],
+        order: 1,
+        image: "",
+      },
+      {
+        optionText: "",
+        questionId: question_id,
+        factorImpacts: [],
+        order: 2,
+        image: "",
+      },
+    ]);
     setVisible(false);
 
     const newUrl = window.location.origin + window.location.pathname;
@@ -41,15 +84,111 @@ export default function AddQuestionForm({
 
   const handleConfirm = async () => {
     setLoading(true);
-    const respond = await postQuestion({
-      survey_id: surveyId,
-      questionText: question,
-      questionType: "TEXT_INPUT",
-      correctAnswer: answer,
-      options: [],
+
+    const filteredOptions = options.filter((item) => item.optionText !== "");
+
+    const adjustedOptions = filteredOptions.map((option) => {
+      if (questionAction === "create") {
+        const { id, ...rest } = option;
+        return rest;
+      }
+      return option;
     });
+
+    let respond;
+
+    if (questionAction === "create") {
+      respond = await postQuestion({
+        survey_id: surveyId,
+        questionText: question,
+        questionType: questionType,
+        order: index,
+        correctOption: correctOption,
+        correctAnswer: answer,
+        point: point,
+        options: adjustedOptions,
+      });
+    } else {
+      respond = await putQuestion({
+        question_id: question_id,
+        survey_id: surveyId,
+        question: {
+          id: Number(question_id),
+          questionText: question,
+          questionType: questionType,
+          order: index,
+          correctAnswer: answer,
+          options: adjustedOptions,
+          correctOption: correctOption,
+          point: point,
+        },
+      });
+    }
+
+    setRefreshQuestions(true);
     setLoading(false);
     handleClose();
+  };
+  const questionForm = () => {
+    switch (questionType) {
+      case "SHORT_TEXT":
+        return (
+          <ShortTextInput
+            question={question}
+            answer={answer}
+            setQuestion={setQuestion}
+            setAnswer={setAnswer}
+            point={point}
+            setPoint={setPoint}
+          />
+        );
+      case "LONG_TEXT":
+        return (
+          <LongTextInput
+            question={question}
+            answer={answer}
+            setQuestion={setQuestion}
+            setAnswer={setAnswer}
+            point={point}
+            setPoint={setPoint}
+          />
+        );
+
+      case "MULTIPLE_CHOICE":
+        return (
+          <MultipleChoiceInput
+            question={question}
+            setQuestion={setQuestion}
+            correctOption={correctOption}
+            setCorrectOption={setCorrectOption}
+            options={options}
+            setOptions={setOptions}
+            point={point}
+            setPoint={setPoint}
+          />
+        );
+
+      case "PSYCHOLOGY":
+        return (
+          <PsychologyInput
+            question={question}
+            answer={answer}
+            setQuestion={setQuestion}
+            setAnswer={setAnswer}
+            options={options}
+            setOptions={setOptions}
+          />
+        );
+      case "OPENING":
+        return (
+          <OpeningInput
+            question={question}
+            setQuestion={setQuestion}
+          />
+        );
+      default:
+        return "error";
+    }
   };
 
   return (
@@ -61,19 +200,17 @@ export default function AddQuestionForm({
             {questionheder && (
               <>
                 <div className="question-icon">
-                  {questionheder.icon} {index}
+                  {questionheder.icon}
+                  {questionType !== "ENDING" &&
+                    questionType !== "OPENING" &&
+                    index}
                 </div>
                 <div className="question-text">{questionheder.text}</div>
               </>
             )}
           </div>
         </div>
-        <InputForm
-          question={question}
-          setQuestion={setQuestion}
-          answer={answer}
-          setAnswer={setAnswer}
-        />
+        <div className="question-input">{questionForm()}</div>
       </div>
 
       <div className="question-form-action">

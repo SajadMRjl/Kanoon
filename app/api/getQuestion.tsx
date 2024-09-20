@@ -5,17 +5,31 @@ interface InputProps {
   question_id: string;
 }
 
+export interface factor {
+  factorId: number;
+  impact: number;
+  plus: boolean;
+}
+
 export interface Option {
   optionText: string;
-  id: number;
+  id?: number;
   questionId: number;
+  factorImpacts: factor[];
+  order: number;
+  image: string;
 }
 
 export interface QuestionType {
   questionText: string;
   questionType: string;
-  correctAnswer: string;
+  correctAnswer?: string;
+  correctOption?: number;
+  order: number;
+  image?: string;
   options: Option[];
+  point?: number;
+  id: number;
 }
 
 export default async function getQuestion({

@@ -1,4 +1,4 @@
-import { CForm, CFormLabel, CFormTextarea } from "@coreui/react";
+import { CForm, CFormInput, CFormLabel, CFormTextarea } from "@coreui/react";
 import EditableTextEditor from "../EditbleTextEditor";
 
 interface InputProps {
@@ -6,6 +6,8 @@ interface InputProps {
   setQuestion: Function;
   answer: string;
   setAnswer: Function;
+  point?: number;
+  setPoint: Function;
 }
 
 export default function InputForm({
@@ -13,6 +15,8 @@ export default function InputForm({
   setQuestion,
   answer,
   setAnswer,
+  point,
+  setPoint,
 }: InputProps) {
   return (
     <div>
@@ -30,6 +34,12 @@ export default function InputForm({
           value={answer}
           rows={3}
           onChange={(e) => setAnswer(e.currentTarget.value)}
+        />
+        <CFormLabel>نمره</CFormLabel>
+        <CFormInput
+          placeholder="نمره"
+          value={point}
+          onChange={(e) => setPoint(e.currentTarget.value)}
         />
       </CForm>
     </div>

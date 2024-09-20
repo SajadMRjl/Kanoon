@@ -1,0 +1,26 @@
+.add-exam-btn{
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-direction: row;
+    padding: 1rem;
+    background-color: #5046E540;
+    color: #5046E5
+}
+
+.add-exam-btn:hover{
+    background-color: #5046E560;
+    color: #5046E5
+}
+
+.exam-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

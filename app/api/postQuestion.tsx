@@ -1,13 +1,28 @@
 import axios, { AxiosError } from "axios";
 
-export interface Option {}
+export interface factor {
+  factorId: number;
+  impact: number;
+  plus: boolean;
+}
+
+export interface option {
+  order: number;
+  image?: string;
+  optionText: string;
+  factorImpacts: factor[];
+}
 
 export interface InputProps {
   survey_id: string;
   questionText: string;
   questionType: string;
-  correctAnswer: string;
-  options: string[];
+  correctAnswer?: string;
+  options?: option[];
+  correctOption?: number;
+  image?: string;
+  order: number;
+  point?: number;
 }
 
 export default async function postQuestion({
@@ -15,7 +30,11 @@ export default async function postQuestion({
   questionText,
   questionType,
   correctAnswer,
+  correctOption,
   options,
+  image,
+  order,
+  point,
 }: InputProps): Promise<number> {
   const access_token = sessionStorage.getItem("access_token");
   const token_type = sessionStorage.getItem("token_type");
@@ -33,7 +52,11 @@ export default async function postQuestion({
       questionText,
       questionType,
       correctAnswer,
+      correctOption,
       options,
+      order,
+      image,
+      point,
     });
     return response.data.id;
   } catch (error) {
