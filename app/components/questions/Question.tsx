@@ -7,9 +7,10 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { useCallback } from "react";
+import { questionTypes } from "./QuestionTypes";
 
 interface InputProps {
-  index: number;
+  index?: number;
   text: string;
   handleDelete: Function;
   id: number;
@@ -58,7 +59,10 @@ export default function Question({
       className="question-content hover:cursor-pointer"
       onClick={handleClick}
     >
-      <div className="index">{index}</div>
+      <div className="index">
+        {questionTypes.find((q) => q.type === type)?.icon}
+        {index}
+      </div>
       <div dangerouslySetInnerHTML={{ __html: text }} />
       <CButton
         variant="ghost"

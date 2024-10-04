@@ -147,7 +147,6 @@ export default function AddQuestion({
       className="add-question-modal"
       visible={visible}
       onClose={handleClose}
-      backdrop="static"
       focus
       keyboard
     >

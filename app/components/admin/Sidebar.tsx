@@ -120,6 +120,7 @@ const Sidebar = () => {
           width={90}
           height={90}
         />
+        <h2>سامانه آزمون ساز پژوهشکده سرمایه انسانی</h2>
       </CSidebarHeader>
       <CSidebarNav>
         {links.map((link) => {

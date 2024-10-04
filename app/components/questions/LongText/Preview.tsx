@@ -8,18 +8,20 @@ interface InputProps {
 
 export default function Preview({ question, answer, index }: InputProps) {
   return (
-    <div className="h-full w-1/2 flex flex-col justify-center items-start">
-      <div className="flex gap-3 justify-center items-start mb-4">
+    <div className="h-full w-full flex flex-col justify-center items-start">
+      <div className="flex w-full gap-3 justify-start items-start mb-4">
         {index}.
         <div
           className="w-full"
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>
-      <CFormTextarea
-        value={answer}
-        rows={3}
-      />
+      <div className="w-1/2">
+        <CFormTextarea
+          value={answer}
+          rows={3}
+        />
+      </div>
     </div>
   );
 }

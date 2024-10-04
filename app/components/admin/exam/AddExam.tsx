@@ -89,6 +89,7 @@ export default function AddExam({ visible, setVisible }: Props) {
       onClose={() => setVisible(false)}
       aria-labelledby="add-survey-modal"
       className="modal"
+      keyboard
     >
       <CForm className="form">
         <div className="form-header">

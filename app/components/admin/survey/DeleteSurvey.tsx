@@ -37,6 +37,7 @@ export default function DeleteSurvey(inputProps: Props) {
       alignment="center"
       onClose={() => inputProps.setVisible(false)}
       aria-labelledby="delete-survey-modal"
+      keyboard
     >
       <div className="container">
         <div className="delete-header">

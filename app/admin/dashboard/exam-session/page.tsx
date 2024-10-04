@@ -9,7 +9,7 @@ import {
   CButton,
   CTabContent,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "./page.css";
 import AddExamSession from "@/app/components/admin/exam-survey/addExamSurvey";
@@ -18,7 +18,6 @@ import ExamSessionTable from "@/app/components/admin/exam-survey/ExamSessionTabl
 export default function Page() {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(true);
-  useEffect(() => {}, []);
 
   return (
     <div className="exam-container">

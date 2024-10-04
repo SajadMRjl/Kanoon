@@ -60,7 +60,6 @@ export default function LoginForm() {
       setCallout("نام");
     } else if (status === 500) {
     } else {
-      // fail to connect to server
       setCallout("خطا در برقراری ارتباط با سرور.");
     }
 

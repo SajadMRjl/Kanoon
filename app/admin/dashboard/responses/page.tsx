@@ -47,12 +47,25 @@ function PageContent() {
         const response = await getAllResponses({
           exam_session_id: examSessionIdFromUrl,
         });
-        setResponses(Array.isArray(response) ? response : []);
+
+        const enrichedResponses = Array.isArray(response)
+          ? response.map((resp) => {
+              const user = users.find((user) => user.id === resp.userId);
+              return {
+                ...resp,
+                fullName: user
+                  ? `${user.first_name} ${user.last_name}`
+                  : "User not found",
+              };
+            })
+          : [];
+
+        setResponses(enrichedResponses);
         setLoading(false);
       };
       fetchResponses();
     }
-  }, [examSessionIdFromUrl]);
+  }, [examSessionIdFromUrl, users]);
 
   const handleDetailButtonClick = (examSessionId: number, userId: number) => {
     setSelectedExamSessionId(examSessionId);
@@ -80,7 +93,7 @@ function PageContent() {
 
   const columns = [
     { key: "id", label: "شناسه", _style: { width: "5%" } },
-    { key: "userId", label: "نام و نام خانوادگی", _style: { width: "10%" } },
+    { key: "fullName", label: "نام و نام خانوادگی", _style: { width: "10%" } },
     { key: "startTime", label: "زمان شروع آزمون", _style: { width: "15%" } },
     {
       key: "action",
@@ -140,18 +153,6 @@ function PageContent() {
               pagination
               loading={loading}
               scopedColumns={{
-                userId: (item: Response) => {
-                  const user = users.find((user) => user.id === item.userId);
-                  return (
-                    <td className="">
-                      <div className="">
-                        {user
-                          ? `${user.first_name} ${user.last_name}`
-                          : "User not found"}
-                      </div>
-                    </td>
-                  );
-                },
                 startTime: (item: Response) => {
                   return (
                     <td>

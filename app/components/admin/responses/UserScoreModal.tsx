@@ -79,6 +79,7 @@ export default function UserScoreModal({
       onClose={onClose}
       size="lg"
       className="w-full"
+      keyboard
     >
       <CModalHeader className="text-lg font-bold flex items-center justify-between">
         جزئیات نمرات کاربر

@@ -35,12 +35,6 @@ export default function InputForm({
           rows={3}
           onChange={(e) => setAnswer(e.currentTarget.value)}
         />
-        <CFormLabel>نمره</CFormLabel>
-        <CFormInput
-          placeholder="نمره"
-          value={point}
-          onChange={(e) => setPoint(e.currentTarget.value)}
-        />
       </CForm>
     </div>
   );

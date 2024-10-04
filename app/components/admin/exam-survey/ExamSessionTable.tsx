@@ -3,7 +3,6 @@ import { CSmartTable } from "@coreui/react-pro";
 import "./ExamSessionTable.css";
 import { CButton } from "@coreui/react";
 import getAllExamSession, { ExamSession } from "@/app/api/getAllExamSessions";
-import getExam, { Exam } from "@/app/api/getExam";
 import moment from "jalali-moment";
 import DeleteSession from "./DeleteSession";
 
@@ -53,7 +52,6 @@ interface inputProps {
 export default function ExamSessionTable({ newVisible, previous }: inputProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [examSessions, setExamSessions] = useState<ExamSession[]>([]);
-  const [examNames, setExamNames] = useState<{ [key: number]: string }>({});
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [deleteId, setDeleteId] = useState(-1);
   const [deleteExamId, setDeleteExamId] = useState(-1);

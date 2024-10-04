@@ -72,6 +72,7 @@ export default function EditSurvey(inputProps: Props) {
       onClose={() => inputProps.setVisible(false)}
       aria-labelledby="add-survey-modal"
       className="modal"
+      keyboard
     >
       <CForm className="form">
         <div className="form-header">

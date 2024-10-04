@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 export interface Survey {
   title: string;
   description: string;
+  creationDate: string;
   id: number;
 }
 

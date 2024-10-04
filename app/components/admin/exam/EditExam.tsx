@@ -50,6 +50,9 @@ export default function EditExam({ visible, setVisible, id }: Props) {
             selected: exam?.examSurveys?.some(
               (examSurvey) => examSurvey.surveyId === survey.id
             ),
+            id: exam?.examSurveys?.some(
+              (examSurvey) => examSurvey.surveyId === survey.id
+            ),
           }));
           setSurveyList(modifiedSurveyList);
         }
@@ -76,7 +79,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
         setIsPublic(exam.isPublic);
       }
     };
-    fetchExam();
+    if (visible) fetchExam();
   }, [visible, id]);
 
   useEffect(() => {
@@ -87,7 +90,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
     const selectedSurveys = surveyList
       .filter((survey) => survey.selected) // Only keep surveys with 'selected' = true
       .map((survey, index) => {
-        return { surveyId: survey.value, order: index }; // Ensure proper mapping
+        return { surveyId: survey.value, order: index, }; // Ensure proper mapping
       });
     const exam: PostExam = {
       title,
@@ -130,6 +133,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
       onClose={() => setVisible(false)}
       aria-labelledby="add-survey-modal"
       className="modal"
+      keyboard
     >
       <CForm className="form">
         <div className="form-header">

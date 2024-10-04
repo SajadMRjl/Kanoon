@@ -7,12 +7,12 @@ import {
   CCallout,
   CFormSelect,
   CFormCheck,
-  CTooltip,
 } from "@coreui/react";
 import { CLoadingButton, CDatePicker } from "@coreui/react-pro";
 import "./addExamSurvey.css";
 import getAllExams, { Exam } from "@/app/api/getAllExams";
 import postExamSession from "@/app/api/postExamSession";
+import Tooltip from "@/app/components/Tooltip";
 
 interface Props {
   visible: boolean;
@@ -31,15 +31,17 @@ export default function AddExamSession({ visible, setVisible }: Props) {
 
   useEffect(() => {
     const fetchExam = async () => {
-      const response = await getAllExams();
-      if (Array.isArray(response)) {
-        setExams(response);
-      } else {
-        console.error(`Failed to fetch surveys: Status code ${response}`);
+      if (visible) {
+        const response = await getAllExams();
+        if (Array.isArray(response)) {
+          setExams(response);
+        } else {
+          console.error(`Failed to fetch surveys: Status code ${response}`);
+        }
       }
     };
-    fetchExam();
-  }, []);
+    if (visible) fetchExam();
+  }, [visible]);
 
   const validateForm = () => {
     if (!examId || !startTime || !endTime || (duration && duration <= 0)) {
@@ -99,6 +101,7 @@ export default function AddExamSession({ visible, setVisible }: Props) {
       onClose={handleClose}
       aria-labelledby="add-survey-modal"
       className="modal"
+      keyboard
     >
       <CForm className="form">
         <div className="form-header">
@@ -145,11 +148,7 @@ export default function AddExamSession({ visible, setVisible }: Props) {
               checked={timerOnQuestion}
               onChange={() => setTimerOnQuestion(!timerOnQuestion)}
             />
-            <CTooltip
-              animation
-              trigger={["hover", "click", "focus"]}
-              content="مدت زمان آزمون به صورت مساوی بین تمام سوالات تقسیم می شود"
-            >
+            <Tooltip content="مدت زمان آزمون به صورت مساوی بین تمام سوالات تقسیم می شود">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width={14}
@@ -161,7 +160,7 @@ export default function AddExamSession({ visible, setVisible }: Props) {
                   <path d="m8.93 6.588l-2.29.287l-.082.38l.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319c.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246c-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0"></path>
                 </g>
               </svg>
-            </CTooltip>
+            </Tooltip>
           </div>
           <div className="form-date">
             <CDatePicker

@@ -41,6 +41,7 @@ export default function DeleteSession(inputProps: Props) {
       alignment="center"
       onClose={() => inputProps.setVisible(false)}
       aria-labelledby="delete-survey-modal"
+      keyboard
     >
       <div className="container">
         <div className="delete-header">
@@ -59,9 +60,9 @@ export default function DeleteSession(inputProps: Props) {
               d="M9.425 10.254a.75.75 0 0 1 .821.671l.5 5a.75.75 0 0 1-1.492.15l-.5-5a.75.75 0 0 1 .671-.821m5.821.821a.75.75 0 0 0-1.492-.15l-.5 5a.75.75 0 0 0 1.492.15z"
             ></path>
           </svg>
-          <div className="text">حذف پرسشنامه</div>
+          <div className="text">لغو آزمون</div>
         </div>
-        <div className="ensure-text">آیا از حذف آزمون مطمئن هستید ؟</div>
+        <div className="ensure-text">آیا از لغو آزمون مطمئن هستید ؟</div>
         <div className="form-actions">
           <CButton
             type="button"

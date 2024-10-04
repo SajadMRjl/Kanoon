@@ -51,7 +51,12 @@ export default function SurveyTable({ newVisible }: inputProps) {
     const fetchSurveys = async () => {
       const response = await getSurveyList();
       if (Array.isArray(response)) {
-        setSurveys(response);
+        const sortedSurvey = response.sort(
+          (a, b) =>
+            new Date(b.creationDate).getTime() -
+            new Date(a.creationDate).getTime()
+        );
+        setSurveys(sortedSurvey);
       } else {
         console.error(`Failed to fetch surveys: Status code ${response}`);
       }
