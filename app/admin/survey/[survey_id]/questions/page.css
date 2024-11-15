@@ -1,9 +1,12 @@
 .question-type-container{
-    height: 100%;
+    height: calc(100vh - 71px);
     width: 400px;
     position: fixed;
     background-color: #FFFFFF;
     right: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .question-bar-container{
@@ -12,4 +15,27 @@
     padding: 2rem;
     width: calc(100vw - 400px);
     height: calc(100vh - 71px);
+}
+
+.add-parameter{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+}
+
+.add-parameter .btn{
+    width: 100%;
+    background-color: #1F2937;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 14px;
+    padding: 10px;
+    box-sizing: border-box;
 }

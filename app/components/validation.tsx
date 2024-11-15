@@ -3,6 +3,16 @@ export function ValidateEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
+export function ValidatePhone(number: string): boolean {
+  const phoneRegex = /^09\d{9}$/;
+  return phoneRegex.test(number);
+}
+
+export function ValidateId(id: string): boolean {
+  const IdRegex = /^\d{10}$/;
+  return IdRegex.test(id);
+}
+
 export function ValidatePassword(password: string): boolean {
   if (password.length < 8) {
     return false;

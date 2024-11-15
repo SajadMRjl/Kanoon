@@ -37,7 +37,7 @@ export default function TypeSelector({ setVisible }: InputProps) {
   return (
     <div className="btn-container">
       {btns.map((btn) => {
-        return (
+        return btn.type === "OPENING" || btn.type === "ENDING" ? null : (
           <CButton
             key={btn.type}
             className="btn-item"

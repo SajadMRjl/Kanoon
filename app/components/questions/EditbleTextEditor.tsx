@@ -28,7 +28,6 @@ const EditableTextEditor = ({
       ["bold", "italic", "underline"],
       [{ color: [] }, { background: [] }],
       ["link", "image"],
-      [{ align: [] }],
     ],
   };
 

@@ -94,4 +94,10 @@
 
 .survey-select{
     width: 100%;
+
 }
+
+.survey-select .form-multi-select-dropdown{
+    max-height: 200px; /* Set a maximum height for the dropdown */
+    overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  }

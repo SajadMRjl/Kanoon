@@ -133,20 +133,6 @@ export default function AddExam({ visible, setVisible }: Props) {
 
           <div className="form-checkbox">
             <CFormCheck
-              id="is-public"
-              label="خصوصی"
-              reverse
-              checked={!isPublic}
-              onChange={() => setIsPublic(!isPublic)}
-            />
-            <CFormCheck
-              id="is-active"
-              label="فعال"
-              reverse
-              checked={isActive}
-              onChange={() => setIsActive(!isActive)}
-            />
-            <CFormCheck
               id="viewable-by-author"
               label="نتیجه آزمون قابل مشاهده باشد"
               reverse

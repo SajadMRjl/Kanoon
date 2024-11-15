@@ -95,6 +95,7 @@ function PageContent() {
     { key: "id", label: "شناسه", _style: { width: "5%" } },
     { key: "fullName", label: "نام و نام خانوادگی", _style: { width: "10%" } },
     { key: "startTime", label: "زمان شروع آزمون", _style: { width: "15%" } },
+    { key: "endTime", label: "زمان پایان آزمون", _style: { width: "15%" } },
     {
       key: "action",
       label: "جزئیات",
@@ -157,6 +158,17 @@ function PageContent() {
                   return (
                     <td>
                       <div>{toShamsiWithTime(item.startTime)}</div>
+                    </td>
+                  );
+                },
+                endTime: (item: Response) => {
+                  return (
+                    <td>
+                      {item.lastAnswer && (
+                        <div>
+                          {toShamsiWithTime(item?.lastAnswer?.creationDate)}
+                        </div>
+                      )}
                     </td>
                   );
                 },

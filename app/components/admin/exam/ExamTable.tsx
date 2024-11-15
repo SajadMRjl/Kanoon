@@ -7,8 +7,30 @@ import EditExam from "./EditExam";
 import putExam from "@/app/api/putExam";
 import DeleteExam from "./DeleteExam";
 import "./ExamTable.css";
+import ActiveExamWarnig from "./ActiveExamWarnig";
 
-const columns = [
+const activeColumns = [
+  {
+    key: "id",
+    label: "شناسه",
+  },
+  {
+    key: "title",
+    label: "عنوان",
+  },
+  {
+    key: "description",
+    label: "توضیحات",
+  },
+  {
+    key: "examSurveys",
+    label: "لیست پرسشنامه ها",
+    filter: false,
+    sorter: false,
+  },
+];
+
+const notActiveColumns = [
   {
     key: "id",
     label: "شناسه",
@@ -28,26 +50,6 @@ const columns = [
     sorter: false,
   },
   {
-    key: "isPublic",
-    label: "حالت آزمون",
-    _style: {
-      width: "10%",
-      textAlign: "center",
-    },
-    filter: false,
-    sorter: false,
-  },
-  {
-    key: "isActive",
-    label: "وضعیت آزمون",
-    _style: {
-      width: "12%",
-      textAlign: "center",
-    },
-    filter: false,
-    sorter: false,
-  },
-  {
     key: "action",
     label: "عملیات",
     _style: {
@@ -61,15 +63,19 @@ const columns = [
 
 interface inputProps {
   newVisible: boolean;
+  active: boolean;
 }
 
-export default function ExamTable({ newVisible }: inputProps) {
+export default function ExamTable({ newVisible, active }: inputProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [exams, setExams] = useState<Exam[]>([]);
+  const [filteredExams, setFilteredExams] = useState<Exam[]>([]);
   const [editVisible, seteditVisible] = useState(false);
   const [editId, setEditId] = useState(-1);
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [deleteId, setDeleteId] = useState(-1);
+  const [activeId, setActiveId] = useState(-1);
+  const [activeVisible, setActiveVisible] = useState(false);
 
   useEffect(() => {
     const fetchExam = async () => {
@@ -80,10 +86,17 @@ export default function ExamTable({ newVisible }: inputProps) {
       } else {
         console.error(`Failed to fetch surveys: Status code ${response}`);
       }
-      setIsLoading(false);
     };
     fetchExam();
-  }, [editVisible, deleteVisible, newVisible]);
+  }, [editVisible, deleteVisible, newVisible, activeVisible]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const tmp = exams.filter((exam) => exam.isActive === active);
+    console.log(tmp);
+    setFilteredExams(tmp);
+    setIsLoading(false);
+  }, [exams, active]);
 
   const handleEdit = (id: number, event: React.MouseEvent) => {
     event.stopPropagation();
@@ -97,32 +110,18 @@ export default function ExamTable({ newVisible }: inputProps) {
     setDeleteVisible(true);
   };
 
-  const toggleExamField = async (examId: number, field: keyof Exam) => {
-    const updatedExams = exams.map((exam) => {
-      if (exam.id === examId) {
-        const updatedExam = { ...exam, [field]: !exam[field] };
-        putExam({ id: examId, exam: updatedExam });
-        return updatedExam;
-      }
-      return exam;
-    });
-    setExams(updatedExams);
-  };
-
-  const handlePublicToggle = (id: number) => {
-    toggleExamField(id, "isPublic");
-  };
-
-  const handleActiveToggle = (id: number) => {
-    toggleExamField(id, "isActive");
+  const handleActiveToggle = (id: number, event: React.MouseEvent) => {
+    event.stopPropagation();
+    setActiveId(id);
+    setActiveVisible(true);
   };
   return (
     <div>
       <CSmartTable
         loading={isLoading}
         activePage={1}
-        columns={columns}
-        items={exams}
+        columns={active ? activeColumns : notActiveColumns}
+        items={filteredExams}
         cleaner
         itemsPerPageSelect
         itemsPerPage={5}
@@ -145,80 +144,35 @@ export default function ExamTable({ newVisible }: inputProps) {
               </td>
             );
           },
-          isPublic: (item: Exam) => {
-            return (
-              <td>
-                <span
-                  onClick={() => handlePublicToggle(item.id)}
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  {item.isPublic ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      color="green"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M6 8h9V6q0-1.25-.875-2.125T12 3t-2.125.875T9 6H7q0-2.075 1.463-3.537T12 1t3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.587 1.413T18 22H6q-.825 0-1.412-.587T4 20V10q0-.825.588-1.412T6 8m0 12h12V10H6zm6-3q.825 0 1.413-.587T14 15t-.587-1.412T12 13t-1.412.588T10 15t.588 1.413T12 17m-6 3V10z"
-                      ></path>
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      color="red"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M6 22q-.825 0-1.412-.587T4 20V10q0-.825.588-1.412T6 8h1V6q0-2.075 1.463-3.537T12 1t3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.587 1.413T18 22zm0-2h12V10H6zm6-3q.825 0 1.413-.587T14 15t-.587-1.412T12 13t-1.412.588T10 15t.588 1.413T12 17M9 8h6V6q0-1.25-.875-2.125T12 3t-2.125.875T9 6zM6 20V10z"
-                      ></path>
-                    </svg>
-                  )}
-                </span>
-              </td>
-            );
-          },
-          isActive: (item: Exam) => {
-            return (
-              <td>
-                <span
-                  onClick={() => handleActiveToggle(item.id)}
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 256 256"
-                    color={item.isActive ? "black" : "gray"}
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M116 128V48a12 12 0 0 1 24 0v80a12 12 0 0 1-24 0m66.55-82a12 12 0 0 0-13.1 20.1C191.41 80.37 204 103 204 128a76 76 0 0 1-152 0c0-25 12.59-47.63 34.55-61.95A12 12 0 0 0 73.45 46C44.56 64.78 28 94.69 28 128a100 100 0 0 0 200 0c0-33.31-16.56-63.22-45.45-82"
-                    ></path>
-                  </svg>
-                </span>
-              </td>
-            );
-          },
+
           action: (item: Exam) => {
             return (
               <td className="action">
                 <div className="action-container">
+                  {!active && (
+                    <button
+                      disabled={item.isActive}
+                      onClick={(event) => handleActiveToggle(item.id, event)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 256 256"
+                        color={item.isActive ? "black" : "gray"}
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M116 128V48a12 12 0 0 1 24 0v80a12 12 0 0 1-24 0m66.55-82a12 12 0 0 0-13.1 20.1C191.41 80.37 204 103 204 128a76 76 0 0 1-152 0c0-25 12.59-47.63 34.55-61.95A12 12 0 0 0 73.45 46C44.56 64.78 28 94.69 28 128a100 100 0 0 0 200 0c0-33.31-16.56-63.22-45.45-82"
+                        ></path>
+                      </svg>
+                    </button>
+                  )}
                   <CButton onClick={(event) => handleRemove(item.id, event)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -270,6 +224,11 @@ export default function ExamTable({ newVisible }: inputProps) {
         visible={deleteVisible}
         id={deleteId}
         setVisible={setDeleteVisible}
+      />
+      <ActiveExamWarnig
+        visible={activeVisible}
+        id={activeId}
+        setVisible={setActiveVisible}
       />
     </div>
   );

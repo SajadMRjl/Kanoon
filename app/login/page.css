@@ -4,19 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #c1e3e4;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("../../public/daneshgah.aacc7613.webp");
 }
 
-.login-picture{
-    display: block;
-    margin-top: 2.5rem;
-    border-radius: 0%;
-    margin-left: 5rem;
-}
-
-@media screen and (max-width: 768px) {
-    .login-picture{
-        display: none;
-    }
-    
-}

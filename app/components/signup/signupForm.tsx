@@ -16,7 +16,12 @@ import "@coreui/coreui-pro/dist/css/coreui.min.css";
 import "./signupForm.css";
 import SignupApi from "@/app/api/signup";
 import Link from "next/link";
-import { ValidateEmail, ValidatePassword } from "../validation";
+import {
+  ValidateEmail,
+  ValidateId,
+  ValidatePassword,
+  ValidatePhone,
+} from "../validation";
 import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
@@ -31,7 +36,9 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [callout, setCallout] = useState("");
   const [emailError, setEmailError] = useState(true);
+  const [phoneError, setPhoneError] = useState(true);
   const [passwordError, setPasswordError] = useState(true);
+  const [idError, setIdError] = useState(true);
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -54,56 +61,40 @@ export default function LoginForm() {
       identity_code,
     });
 
-    if (status === 200) {
+    if (status === "ثبت نام انجام شد") {
       router.push("/dashboard");
-    } else if (status === 401) {
-      setCallout("نام");
-    } else if (status === 500) {
     } else {
-      setCallout("خطا در برقراری ارتباط با سرور.");
+      setCallout(status);
     }
 
     setIsLoading(false);
   };
 
-  const handleTogglePasswordVisibility = () => {
-    const passwordInput = passwordRef.current;
-    const cursorPosition = passwordInput?.selectionStart;
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-    setTimeout(() => {
-      if (passwordInput && cursorPosition) {
-        passwordInput.setSelectionRange(cursorPosition, cursorPosition);
-        passwordInput.focus();
-      }
-    }, 0);
-  };
-
   return (
-    <CForm className="form">
-      <h2>ثبت نام</h2>
-      <div className="name-input">
-        <CFormInput
-          id="firstname"
-          className="first-name"
-          ref={usernameRef}
-          type="text"
-          placeholder="نام"
-          onChange={(e) => {
-            setFirstname(e.target.value);
-            setCallout("");
-          }}
-        />
-        <CFormInput
-          className="last-name"
-          id="lastname"
-          type="text"
-          placeholder="نام خانوادگی"
-          onChange={(e) => {
-            setLastname(e.target.value);
-            setCallout("");
-          }}
-        />
-      </div>
+    <CForm className="signup-form">
+      <h3>ثبت نام</h3>
+      <CFormInput
+        id="firstname"
+        className="first-name"
+        ref={usernameRef}
+        type="text"
+        placeholder="نام"
+        onChange={(e) => {
+          setFirstname(e.target.value);
+          setCallout("");
+        }}
+      />
+      <CFormInput
+        className="last-name"
+        id="lastname"
+        type="text"
+        placeholder="نام خانوادگی"
+        onChange={(e) => {
+          setLastname(e.target.value);
+          setCallout("");
+        }}
+      />
+
       <CFormInput
         className="normal-input"
         id="username"
@@ -113,7 +104,6 @@ export default function LoginForm() {
           setUsername(e.target.value);
           setCallout("");
         }}
-        dir={username ? "ltr" : "rtl"}
       />
       <CFormInput
         className="normal-input"
@@ -122,9 +112,14 @@ export default function LoginForm() {
         placeholder="شماره موبایل"
         onChange={(e) => {
           setPhoneNumber(e.target.value);
+          setPhoneError(ValidatePhone(e.target.value));
           setCallout("");
         }}
+        invalid={!phoneError}
       />
+      {!phoneError && (
+        <div className="invalid-feedback">شماره موبایل معتبر نمی باشد.</div>
+      )}
       <CFormInput
         className="normal-input"
         id="email"
@@ -132,13 +127,15 @@ export default function LoginForm() {
         placeholder="ایمیل"
         onChange={(e) => {
           setEmail(e.target.value);
-          setEmailError(ValidateEmail(email));
+          setEmailError(ValidateEmail(e.target.value));
           setCallout("");
         }}
         dir={email ? "ltr" : "rtl"}
         invalid={!emailError}
-        feedbackInvalid="ایمیل معتبر نمی باشد."
       />
+      {!emailError && (
+        <div className="invalid-feedback">ایمیل معتبر نمی باشد.</div>
+      )}
       <CFormInput
         className="normal-input"
         id="identitycode"
@@ -146,34 +143,35 @@ export default function LoginForm() {
         placeholder="کد ملی"
         onChange={(e) => {
           setIdentityCode(e.target.value);
+          setIdError(ValidateId(e.target.value));
           setCallout("");
         }}
+        invalid={!idError}
       />
-      <CInputGroup className="password-input">
-        <CFormInput
-          className="password"
-          id="password"
-          type={showPassword ? "text" : "password"}
-          value={password}
-          placeholder="رمز عبور"
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setPasswordError(ValidatePassword(password));
-            setCallout("");
-          }}
-          dir={password ? "ltr" : "rtl"}
-          ref={passwordRef}
-          invalid={!passwordError}
-        />
-        <CButton
-          type="button"
-          className="show-pass"
-          onClick={handleTogglePasswordVisibility}
-          onMouseDown={(e) => e.preventDefault()}
-        >
-          {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-        </CButton>
-      </CInputGroup>
+      {!idError && (
+        <div className="invalid-feedback">کدملی معتبر نمی باشد.</div>
+      )}
+      <CFormInput
+        className="password"
+        id="password"
+        type={showPassword ? "text" : "password"}
+        value={password}
+        placeholder="رمز عبور"
+        onChange={(e) => {
+          setPassword(e.target.value);
+          setPasswordError(ValidatePassword(password));
+          setCallout("");
+        }}
+        dir={password ? "ltr" : "rtl"}
+        ref={passwordRef}
+        invalid={!passwordError}
+      />
+      {!passwordError && (
+        <div className="invalid-feedback">
+          رمز عبور باید حداقل ۸ کاراکتر باشد و شامل حروف کوچک و بزرگ، اعداد و یک
+          کاراکتر خاص مانند !@#$%^&*.? باشد.
+        </div>
+      )}
       {callout && <CCallout color="danger">{callout}</CCallout>}
       <CLoadingButton
         className="form-button"
@@ -192,7 +190,7 @@ export default function LoginForm() {
       >
         ثبت نام
       </CLoadingButton>
-      <div className="form-signup">
+      <div className="form-login">
         قبلا ثبت نام کرده اید؟
         <Link href={"/login"}>وارد شوید</Link>
       </div>

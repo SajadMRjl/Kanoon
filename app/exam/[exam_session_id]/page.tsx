@@ -35,6 +35,8 @@ export default function Page() {
     : exam_session_id;
   const [questionTime, setQuestionTime] = useState<number>(0);
   const [examTime, setExamTime] = useState<number>(0);
+  const [incomingPage, setIncomingPage] = useState<Question | undefined>();
+  const [endingPage, setEndigPage] = useState<Question | undefined>();
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -68,7 +70,14 @@ export default function Page() {
         });
         setLoading(true);
         if (Array.isArray(response)) {
-          setQuestions(response.sort((a, b) => a.order - b.order));
+          const sorted = response?.sort((a, b) => a.order - b.order);
+          if (sorted && sorted[0]?.questionType === "ENDING")
+            setEndigPage(sorted.shift());
+          if (sorted && sorted[0]?.questionType === "OPENING")
+            setIncomingPage(sorted.shift());
+          setQuestions(sorted);
+          console.log(sorted);
+          console.log(incomingPage);
         } else {
           setError("خطا در دریافت سوالات");
           return;
@@ -166,6 +175,7 @@ export default function Page() {
             setOptionId={setOptionId}
           />
         );
+      
       default:
         return <div>error</div>;
     }
@@ -204,7 +214,15 @@ export default function Page() {
     </div>
   ) : examStarted ? (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-6">
-      <div className="text-3xl font-bold">آماده‌اید؟</div>
+      <div className="text-3xl font-bold">
+        {incomingPage && incomingPage.questionText ? (
+          <div
+            dangerouslySetInnerHTML={{ __html: incomingPage.questionText }}
+          />
+        ) : (
+          "آماده‌اید؟"
+        )}
+      </div>
       <div className="text-lg text-center">{examSession?.exam.title}</div>
       <div className="text-md text-center">{examSession?.exam.description}</div>
       <div className="text-md">
@@ -217,10 +235,16 @@ export default function Page() {
         شروع آزمون
       </CButton>
     </div>
-  ) : examEnded ? (
+  ) : examEnded || questions.length === 0 ? (
     <div className="w-full h-screen flex flex-col items-center justify-center gap-6">
-      <div className="text-3xl font-bold">آزمون پایان یافت</div>
-      <div className="text-lg">سپاس‌گزاریم</div>
+      <div className="text-3xl font-bold">
+        {endingPage && endingPage.questionText ? (
+          <div dangerouslySetInnerHTML={{ __html: endingPage.questionText }} />
+        ) : (
+          "آزمون پایان یافت"
+        )}
+      </div>
+
       <CButton
         type="button"
         href="/dashboard"

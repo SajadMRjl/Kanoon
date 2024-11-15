@@ -29,7 +29,6 @@ export default function InputForm({
     const newOption: option = {
       optionText: "",
       factorImpacts: [],
-      image: "",
       order: options.length + 1,
     };
     setOptions([...options, newOption]);
@@ -42,6 +41,13 @@ export default function InputForm({
   const setOptionText = (index: number, text: string) => {
     const updatedOptions = options.map((option, i) =>
       i === index ? { ...option, optionText: text } : option
+    );
+    setOptions(updatedOptions);
+  };
+
+  const setOptionImage = (index: number, image: string) => {
+    const updatedOptions = options.map((option, i) =>
+      i === index ? { ...option, image: image } : option
     );
     setOptions(updatedOptions);
   };
@@ -68,6 +74,8 @@ export default function InputForm({
               key={index}
               index={index + 1}
               text={option.optionText}
+              image={option.image}
+              setImage={(text: string) => setOptionImage(index, text)}
               CorrectOption={correctOption}
               setCorrectOption={setCorrectOption}
               setText={(text: string) => setOptionText(index, text)}

@@ -11,9 +11,7 @@
     border-radius: 5px;
     border: 1px solid #1F2937;
 }
-.choice .btn {
-    cursor: not-allowed;
-  }
+
 
 .choice .index{
     margin: auto 5px;
@@ -49,4 +47,8 @@
 
 .choice .btn{
     border: 0px;
+}
+
+.choice .disable {
+    cursor: not-allowed !important;
 }

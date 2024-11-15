@@ -10,12 +10,12 @@ export interface ExamSurvey {
 }
 
 export interface Exam {
-  title: string;
-  description: string;
-  isPublic: boolean;
-  isActive: boolean;
-  viewableByAuthorOnly: boolean;
-  examSurveys: ExamSurvey[];
+  title?: string;
+  description?: string;
+  isPublic?: boolean;
+  isActive?: boolean;
+  viewableByAuthorOnly?: boolean;
+  examSurveys?: ExamSurvey[];
   id?: number;
 }
 
@@ -31,7 +31,7 @@ export default async function putExam({
   const access_token = sessionStorage.getItem("access_token");
   const token_type = sessionStorage.getItem("token_type");
   const api = axios.create({
-    baseURL: "https://fastapi-azmon.chbk.run/",
+    baseURL: "https://fastapi-azmon.chbk.app/",
     headers: {
       "Content-Type": "application/json",
       Authorization: `${token_type} ${access_token}`,

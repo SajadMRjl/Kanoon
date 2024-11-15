@@ -7,7 +7,9 @@ import ShortTextOutput from "./ShortText/Preview";
 import LongTextOutput from "./LongText/Preview";
 import MultipleChoiceOutput from "./MultipleChoice/Preview";
 import PsychologyOutput from "./Psychology/Preview";
+import ParameterOutput from "./Parameter/Preview";
 import OpeningOutput from "./IncomingPage/Preview";
+import EndingOutPut from "./EndingPage/Preview";
 import { Option } from "@/app/api/getQuestion";
 import getQuestion, { QuestionType } from "@/app/api/getQuestion";
 
@@ -111,8 +113,18 @@ export default function AddQuestion({
             index={order || index}
           />
         );
+      case "PARAMETER":
+        return (
+          <ParameterOutput
+            question={question}
+            options={options}
+            index={order || index}
+          />
+        );
       case "OPENING":
         return <OpeningOutput question={question} />;
+      case "ENDING":
+        return <EndingOutPut question={question} />;
       default:
         return null;
     }

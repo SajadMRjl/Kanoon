@@ -1,7 +1,7 @@
 import "./globals.css";
 import "@coreui/coreui-pro/dist/css/coreui.min.css";
 import "@coreui/coreui/dist/css/coreui.min.css";
-import { estedad } from "./components/font";
+import { vazir } from "./components/font";
 
 export default function RootLayout({
   children,
@@ -10,7 +10,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa">
-      <body className={estedad.className}>{children}</body>
+      <body className={vazir.className}>{children}</body>
     </html>
   );
 }

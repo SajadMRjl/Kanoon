@@ -1,0 +1,29 @@
+.option-modal .modal-dialog{
+    --cui-modal-width: 50%;
+
+    height: calc(100% - 2 * var(--cui-modal-margin));
+}
+
+.option-modal .modal-content{
+    height: 100%;
+}
+
+.option-modal .form-label{
+    width: 100% ;
+}
+
+.modal-header .btn-close{
+    margin-left: 0px;
+}
+
+
+.modal-body .btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.modal-body .remove-btn{
+    padding: 6px 16px;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   CSidebar,
   CSidebarNav,
@@ -91,6 +91,7 @@ const Sidebar = () => {
   const [email, setEmail] = useState("");
 
   const router = useRouter();
+  const didFetch = useRef(false);
 
   const handleLogout = () => {
     sessionStorage.clear();
@@ -98,16 +99,19 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    const fetchMe = async () => {
-      const response = await getMe();
-      if (typeof response === "number") {
-        console.log("error");
-      } else {
-        setName(response.first_name + " " + response.last_name);
-        setEmail(response.email);
-      }
-    };
-    fetchMe();
+    if (!didFetch.current) {
+      const fetchMe = async () => {
+        const response = await getMe();
+        if (typeof response === "number") {
+          console.log("error");
+        } else {
+          setName(response.first_name + " " + response.last_name);
+          setEmail(response.email);
+        }
+      };
+      fetchMe();
+      didFetch.current = true; // Mark it as executed
+    }
   }, []);
 
   return (

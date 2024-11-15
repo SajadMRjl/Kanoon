@@ -4,16 +4,51 @@ import ExamTable from "@/app/components/admin/exam/ExamTable";
 import "./page.css";
 import { CButton } from "@coreui/react";
 import { useState } from "react";
+import { CTabs, CTabList, CTab, CTabContent, CTabPanel } from "@coreui/react";
 import AddExam from "@/app/components/admin/exam/AddExam";
 
 export default function Page() {
   const [visible, setVisible] = useState(false);
+  const [active, setActive] = useState(true);
 
   return (
     <div className="page">
       <div className="w-full">
         <h2 className="page-header">آزمون ها</h2>
-        <ExamTable newVisible={visible} />
+        <CTabs activeItemKey={1}>
+          <CTabList variant="underline-border">
+            <CTab itemKey={1}>فعال</CTab>
+            <CTab itemKey={2}>غیرفعال</CTab>
+          </CTabList>
+          <CTabContent>
+            <CTabPanel
+              transition
+              className="py-3"
+              itemKey={1}
+              onShow={() => {
+                setActive(true);
+              }}
+            >
+              <ExamTable
+                newVisible={visible}
+                active={active}
+              />
+            </CTabPanel>
+            <CTabPanel
+              transition
+              className="py-3"
+              itemKey={2}
+              onShow={() => {
+                setActive(false);
+              }}
+            >
+              <ExamTable
+                newVisible={visible}
+                active={active}
+              />
+            </CTabPanel>
+          </CTabContent>
+        </CTabs>
       </div>
       <CButton
         className="add-exam-btn"

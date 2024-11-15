@@ -17,14 +17,11 @@
     padding: 10px;
     flex: 1 1 calc(50% - 12px);
     box-sizing: border-box;
-  }
+}
+
 
   
   
-.btn-item:first-child, .btn-item:last-child {
-    flex: 1 1 100%;
-    justify-content: center;
-}
 
 
 

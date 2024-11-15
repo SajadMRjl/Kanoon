@@ -7,6 +7,8 @@ import LongTextInput from "./LongText/InputForm";
 import MultipleChoiceInput from "./MultipleChoice/InputForm";
 import PsychologyInput from "./Psychology/InputForm";
 import OpeningInput from "./IncomingPage/InputForm";
+import EndingInput from "./EndingPage/InputForm";
+import ParameterInput from "./Parameter/InputForm";
 import { CLoadingButton } from "@coreui/react-pro";
 import { useEffect, useState } from "react";
 import postQuestion from "@/app/api/postQuestion";
@@ -101,8 +103,14 @@ export default function AddQuestionForm({
       respond = await postQuestion({
         survey_id: surveyId,
         questionText: question,
-        questionType: questionType,
-        order: questionType === "OPENING" ? 0 : index + 1,
+        questionType:
+          questionType === "PARAMETER" ? "MULTIPLE_CHOICE" : questionType,
+        order:
+          questionType === "OPENING"
+            ? 0
+            : questionType === "ENDING"
+            ? -1
+            : index + 1,
         correctOption: correctOption,
         correctAnswer: answer,
         point: point,
@@ -179,9 +187,26 @@ export default function AddQuestionForm({
             setOptions={setOptions}
           />
         );
+
+      case "PARAMETER": {
+        return (
+          <ParameterInput
+            question={question}
+            setQuestion={setQuestion}
+            setOptions={setOptions}
+          />
+        );
+      }
       case "OPENING":
         return (
           <OpeningInput
+            question={question}
+            setQuestion={setQuestion}
+          />
+        );
+      case "ENDING":
+        return (
+          <EndingInput
             question={question}
             setQuestion={setQuestion}
           />
