@@ -63,7 +63,10 @@ export default function Question({
         {questionTypes.find((q) => q.type === type)?.icon}
         {index}
       </div>
-      <div dangerouslySetInnerHTML={{ __html: text }} />
+      <div
+        className="break-all"
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
       <CButton
         variant="ghost"
         type="button"

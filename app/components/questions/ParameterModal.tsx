@@ -152,7 +152,7 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
     });
   };
 
-  const handleSave = async (closeAfterSave: boolean) => {
+  const handleSave = async () => {
     try {
       // Save new parameters (no IDs)
       const createdParams = await Promise.all(
@@ -171,10 +171,7 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
       setNewParameters([]);
       setRefresh(true);
       setSelectedParameterId(null);
-
-      if (closeAfterSave) {
-        setVisible(false);
-      }
+      setVisible(false);
     } catch (error) {
       console.error("Error saving parameters:", error);
     }
@@ -182,7 +179,9 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
 
   const handleRemove = (id: string) => {
     setRefresh(true);
-    deleteFactor({ factor_id: id, survey_id: surveyId });
+    if (selectedParameter?.factors.find((factor) => factor.id === id))
+      selectedParameter.factors.filter((factor) => factor.id === id);
+    else deleteFactor({ factor_id: id, survey_id: surveyId });
   };
 
   return (
@@ -314,15 +313,9 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
       <CModalFooter>
         <CButton
           color="primary"
-          onClick={() => handleSave(false)}
+          onClick={() => handleSave()}
         >
           ذخیره
-        </CButton>
-        <CButton
-          color="primary"
-          onClick={() => handleSave(true)}
-        >
-          ذخیره و بستن
         </CButton>
       </CModalFooter>
     </CModal>

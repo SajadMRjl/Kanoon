@@ -77,13 +77,6 @@ export default function EditSurvey(inputProps: Props) {
       <CForm className="form">
         <div className="form-header">
           <h2>ویرایش پرسشنامه</h2>
-          <CButton
-            type="button"
-            variant="ghost"
-            onClick={() => inputProps.setVisible(false)}
-          >
-            انصراف
-          </CButton>
         </div>
         <div className="form-inputs">
           <CFormInput

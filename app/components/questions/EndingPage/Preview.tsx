@@ -7,7 +7,7 @@ export default function Preview({ question }: InputProps) {
     <div className="h-full w-1/2 flex flex-col justify-center items-start">
       <div className="flex gap-3 justify-center items-start mb-4">
         <div
-          className="w-full"
+          className="w-full break-all"
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>

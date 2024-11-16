@@ -12,7 +12,7 @@ export default function Preview({ question, answer, index }: InputProps) {
       <div className="flex w-full gap-3 justify-start items-start mb-4">
         {index}.
         <div
-          className="w-full"
+          className="w-full break-all"
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>

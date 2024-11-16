@@ -1,5 +1,12 @@
-import { CForm, CFormLabel, CFormTextarea, CFormInput } from "@coreui/react";
+import {
+  CForm,
+  CFormLabel,
+  CFormTextarea,
+  CFormInput,
+  CFormFeedback,
+} from "@coreui/react";
 import EditableTextEditor from "../EditbleTextEditor";
+import { useState } from "react";
 
 interface InputProps {
   question: string;
@@ -18,6 +25,7 @@ export default function InputForm({
   point,
   setPoint,
 }: InputProps) {
+  console.log(question);
   return (
     <div>
       <CForm className="input-form">

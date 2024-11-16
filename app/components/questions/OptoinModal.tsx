@@ -253,8 +253,14 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
                   placeholder="تاثیر شاخص"
                   type="number"
                   value={newFactorImpact}
-                  onChange={(e) => setNewFactorImpact(Number(e.target.value))}
-                  className="w-full"
+                  onChange={(e) =>
+                    setNewFactorImpact(
+                      e.target.value === "0"
+                        ? undefined
+                        : Number(e.target.value)
+                    )
+                  }
+                  className="w-full number-input"
                 />
                 <CButton
                   color="primary"

@@ -212,7 +212,7 @@ export default function AddQuestionForm({
           />
         );
       default:
-        return "error";
+        return "در حال بارگزاری...";
     }
   };
 
@@ -253,6 +253,7 @@ export default function AddQuestionForm({
           variant="outline"
           onClick={handleConfirm}
           loading={loading}
+          disabled={question.trim() === "<p><br></p>" || question === ""}
         >
           ذخیره
         </CLoadingButton>

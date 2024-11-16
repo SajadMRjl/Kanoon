@@ -28,15 +28,15 @@ export default function Output({
   }, [question]);
 
   return (
-    <div className="h-full w-1/2 flex flex-col justify-center items-start">
+    <div className="h-full w-full flex flex-col justify-center items-start">
       <div className="flex gap-3 justify-center items-start mb-4">
         {index}.
         <div
-          className="overflow-auto"
+          className="overflow-auto break-all"
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>
-      <div className="flex gap-3 flex-wrap">
+      <div className="flex flex-row gap-1 flex-wrap">
         {options?.map((option, index) => {
           return (
             <OutputChoice
