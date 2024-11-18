@@ -17,9 +17,12 @@ async function updateParameter(
   });
 
   try {
+    const factors = parameter.factors.map((factor) => ({
+      name: factor.name,
+    }));
     const response = await api.put(
       `/surveys/${surveyId}/parameter/${parameterId}`,
-      parameter
+      { name: parameter.name, factors: factors }
     );
     return response.data;
   } catch (error) {

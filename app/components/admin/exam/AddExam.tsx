@@ -108,6 +108,7 @@ export default function AddExam({ visible, setVisible }: Props) {
           />
           <CFormTextarea
             id="description"
+            maxLength={200}
             rows={4}
             placeholder="توضیحات"
             onChange={(e) => {

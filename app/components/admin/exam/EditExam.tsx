@@ -90,7 +90,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
     const selectedSurveys = surveyList
       .filter((survey) => survey.selected) // Only keep surveys with 'selected' = true
       .map((survey, index) => {
-        return { surveyId: survey.value, order: index, }; // Ensure proper mapping
+        return { surveyId: survey.value, order: index }; // Ensure proper mapping
       });
     const exam: PostExam = {
       title,
@@ -154,6 +154,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
           <CFormTextarea
             id="description"
             value={description}
+            maxLength={200}
             rows={4}
             placeholder="توضیحات"
             onChange={(e) => {

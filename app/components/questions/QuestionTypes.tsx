@@ -92,7 +92,7 @@ export const questionTypes = [
     type: "PSYCHOLOGY",
   },
   {
-    text: "چندگزینه ای با پارامتر",
+    text: "چندگزینه ای با عامل",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -16,10 +16,13 @@ async function createParameter(
   });
 
   try {
-    const response = await api.post(
-      `/surveys/${surveyId}/parameter/`,
-      parameter
-    );
+    const factors = parameter.factors.map((factor) => ({
+      name: factor.name,
+    }));
+    const response = await api.post(`/surveys/${surveyId}/parameter/`, {
+      name: parameter.name,
+      factors: factors,
+    });
     return response.data; // Assume it returns created parameter with id
   } catch (error) {
     console.error("Error creating parameter:", error);

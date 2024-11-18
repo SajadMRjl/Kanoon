@@ -94,6 +94,7 @@ export default function EditSurvey(inputProps: Props) {
             id="description"
             rows={4}
             placeholder="توضیحات"
+            maxLength={200}
             value={description}
             onChange={(e) => {
               setDescription(e.target.value);

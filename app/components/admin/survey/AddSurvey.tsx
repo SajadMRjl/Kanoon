@@ -77,6 +77,7 @@ export default function AddSurvey({ visible, setVisible }: Props) {
           <CFormTextarea
             id="description"
             rows={4}
+            maxLength={200}
             placeholder="توضیحات"
             onChange={(e) => {
               setDescription(e.target.value);

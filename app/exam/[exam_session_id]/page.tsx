@@ -147,6 +147,7 @@ export default function Page() {
             index={index + 1}
             question={currentQuestion.questionText}
             setAnswer={setAnswer}
+            image={currentQuestion.image}
           />
         );
       case "LONG_TEXT":
@@ -155,6 +156,7 @@ export default function Page() {
             index={index + 1}
             question={currentQuestion.questionText}
             setAnswer={setAnswer}
+            image={currentQuestion.image}
           />
         );
       case "MULTIPLE_CHOICE":
@@ -163,6 +165,7 @@ export default function Page() {
             index={index + 1}
             options={currentQuestion.options}
             question={currentQuestion.questionText}
+            image={currentQuestion.image}
             setOptionId={setOptionId}
           />
         );
@@ -173,9 +176,10 @@ export default function Page() {
             options={currentQuestion.options}
             question={currentQuestion.questionText}
             setOptionId={setOptionId}
+            image={currentQuestion.image}
           />
         );
-      
+
       default:
         return <div>error</div>;
     }

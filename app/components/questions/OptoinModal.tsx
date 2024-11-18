@@ -26,7 +26,7 @@ interface staticFactorImpacts {
 
 export interface Option {
   id?: string;
-  order?: number;
+  order: number;
   optionText: string;
   staticFactorImpacts: staticFactorImpacts;
 }
@@ -168,6 +168,7 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
     setNewOptions((prev) =>
       prev.concat({
         optionText: newOptionText,
+        order: prev.length,
         staticFactorImpacts: {
           factorId: Number(selectedFactorId),
           impact: Math.abs(newFactorImpact || 0),
@@ -191,7 +192,7 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
       <CModalBody className="p-6 space-y-6 container">
         <div className="flex flex-col gap-2">
           <CFormSelect
-            label="پارامتر ها"
+            label="عامل ها"
             className="w-full"
             onChange={(e) => {
               setSelectedParameterId(e.target.value);
@@ -203,7 +204,7 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
               disabled
               value=""
             >
-              یک پارامتر را انتخاب کنید
+              یک عامل را انتخاب کنید
             </option>
             {parameters?.map((param) => (
               <option
@@ -226,7 +227,7 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
             >
               {selectedParameterId || selectedParameterId === ""
                 ? "یک شاخص را انتخاب کنید"
-                : "ابتدا یک پارامتر را انتخاب کنید"}
+                : "ابتدا یک عامل را انتخاب کنید"}
             </option>
             {selectedParameter?.factors.map((param) => (
               <option

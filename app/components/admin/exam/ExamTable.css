@@ -1,32 +1,31 @@
-th{
-    padding: 1rem .5rem !important;
+th {
+  padding: 1rem 0.5rem !important;
 }
 
-td{
-    padding: 1rem .5rem !important;
+td {
+  padding: 1rem 0.5rem !important;
+  word-break: break-all;
 }
 
-
-.action{
-    padding: auto;
+.action {
+  padding: auto;
 }
 
-.action .action-container
- .btn{
-    padding: 0;
+.action .action-container .btn {
+  padding: 0;
 }
 
-.action-container{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content:center;
-    gap: 1rem;
+.action-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.spinner-grow{
-    margin-top: 110px;
-    width: 20px;
-    height: 20px;
+.spinner-grow {
+  margin-top: 110px;
+  width: 20px;
+  height: 20px;
 }

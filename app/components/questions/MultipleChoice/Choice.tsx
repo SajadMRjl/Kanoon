@@ -138,8 +138,8 @@ export default function Choice({
             type="file"
             accept="image/*"
             ref={fileInputRef}
-            onChange={handleFileChange} // Handle file input change
-            style={{ display: "none" }} // Hide the actual file input
+            onChange={handleFileChange}
+            style={{ display: "none" }}
           />
           <CButton
             className={`m-0 p-1 pl-3 ${length < 3 && "disable"}`}

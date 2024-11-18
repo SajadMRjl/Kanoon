@@ -56,6 +56,8 @@ export default function AddQuestion({
     },
   ]);
 
+  const [image, setImage] = useState("");
+
   useEffect(() => {
     const fetchQuestion = async () => {
       if (questionAction === "edit" && surveyId && question_id) {
@@ -71,6 +73,7 @@ export default function AddQuestion({
           setCorrectOption(response.correctOption);
           setOrder(response.order);
           setPoint(response.point);
+          setImage(response.image || "");
         } else {
         }
       }
@@ -87,6 +90,7 @@ export default function AddQuestion({
             question={question}
             answer={answer}
             index={order || index}
+            image={image}
           />
         );
       case "LONG_TEXT":
@@ -94,12 +98,14 @@ export default function AddQuestion({
           <LongTextOutput
             question={question}
             answer={answer}
+            image={image}
             index={order || index}
           />
         );
       case "MULTIPLE_CHOICE":
         return (
           <MultipleChoiceOutput
+            image={image}
             question={question}
             options={options}
             index={order || index}
@@ -108,6 +114,7 @@ export default function AddQuestion({
       case "PSYCHOLOGY":
         return (
           <PsychologyOutput
+            image={image}
             question={question}
             options={options}
             index={order || index}
@@ -116,6 +123,7 @@ export default function AddQuestion({
       case "PARAMETER":
         return (
           <ParameterOutput
+            image={image}
             question={question}
             options={options}
             index={order || index}
@@ -151,6 +159,9 @@ export default function AddQuestion({
     ]);
     setOrder(undefined);
     setPoint(undefined);
+    setImage("");
+    const newUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState(null, "", newUrl);
     setVisible(false);
   };
 
@@ -178,6 +189,8 @@ export default function AddQuestion({
             point={point}
             setPoint={setPoint}
             setRefreshQuestions={setRefreshQuestions}
+            image={image}
+            setImage={setImage}
           />
         </div>
         <div className="question-preview">{output()}</div>

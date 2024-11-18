@@ -29,6 +29,8 @@ interface InputProps {
   point?: number;
   setPoint: Function;
   setRefreshQuestions: Function;
+  image: string;
+  setImage: Function;
 }
 
 export default function AddQuestionForm({
@@ -45,6 +47,8 @@ export default function AddQuestionForm({
   point,
   setPoint,
   setRefreshQuestions,
+  image,
+  setImage,
 }: InputProps) {
   const { survey_id } = useParams();
   const surveyId = Array.isArray(survey_id) ? survey_id[0] : survey_id;
@@ -115,6 +119,7 @@ export default function AddQuestionForm({
         correctAnswer: answer,
         point: point,
         options: adjustedOptions,
+        image: image,
       });
     } else {
       respond = await putQuestion({
@@ -129,6 +134,7 @@ export default function AddQuestionForm({
           options: adjustedOptions,
           correctOption: correctOption,
           point: point,
+          image: image,
         },
       });
     }
@@ -148,6 +154,8 @@ export default function AddQuestionForm({
             setAnswer={setAnswer}
             point={point}
             setPoint={setPoint}
+            image={image}
+            setImage={setImage}
           />
         );
       case "LONG_TEXT":
@@ -159,6 +167,8 @@ export default function AddQuestionForm({
             setAnswer={setAnswer}
             point={point}
             setPoint={setPoint}
+            image={image}
+            setImage={setImage}
           />
         );
 
@@ -173,6 +183,8 @@ export default function AddQuestionForm({
             setOptions={setOptions}
             point={point}
             setPoint={setPoint}
+            image={image}
+            setImage={setImage}
           />
         );
 
@@ -185,6 +197,8 @@ export default function AddQuestionForm({
             setAnswer={setAnswer}
             options={options}
             setOptions={setOptions}
+            image={image}
+            setImage={setImage}
           />
         );
 
@@ -194,6 +208,8 @@ export default function AddQuestionForm({
             question={question}
             setQuestion={setQuestion}
             setOptions={setOptions}
+            image={image}
+            setImage={setImage}
           />
         );
       }

@@ -17,6 +17,7 @@ import updateParameter from "@/app/api/putParam";
 import createParameter from "@/app/api/postParam";
 import { CSmartTable } from "@coreui/react-pro";
 import deleteFactor from "@/app/api/deleteFactor";
+import deleteParameter from "@/app/api/deleteParameter";
 
 interface Option {
   id: string;
@@ -65,7 +66,7 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
     },
     {
       key: "action",
-      label: "حذف",
+      label: "عملیات",
       filter: false,
       sorter: false,
       _style: { width: "10%", textAlign: "center", padding: "0" },
@@ -117,7 +118,6 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
           : param
       );
       setParameters(tmp);
-      console.log(parameters);
     } else {
       const tmp = newParameters?.map((param) =>
         param.id === selectedParameterId
@@ -134,13 +134,17 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
   };
 
   const handleRemoveParameter = () => {
-    setParameters((prevParameters) =>
-      prevParameters?.filter((param) => param.id !== selectedParameterId)
-    );
-    setNewParameters((prevParameters) =>
-      prevParameters?.filter((param) => param.id !== selectedParameterId)
-    );
+    if (parameters.find((param) => param.id === selectedParameterId))
+      deleteParameter({
+        survey_id: surveyId,
+        parameter_id: selectedParameterId || "",
+      });
+    else
+      setNewParameters((prevParameters) =>
+        prevParameters?.filter((param) => param.id !== selectedParameterId)
+      );
     setSelectedParameterId(null);
+    setRefresh(true);
   };
 
   const handleAddNewParameter = () => {
@@ -154,7 +158,6 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
 
   const handleSave = async () => {
     try {
-      // Save new parameters (no IDs)
       const createdParams = await Promise.all(
         newParameters.map((param) => createParameter(surveyId, param))
       );
@@ -178,10 +181,10 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
   };
 
   const handleRemove = (id: string) => {
-    setRefresh(true);
     if (selectedParameter?.factors.find((factor) => factor.id === id))
-      selectedParameter.factors.filter((factor) => factor.id === id);
-    else deleteFactor({ factor_id: id, survey_id: surveyId });
+      selectedParameter.factors.filter((factor) => factor.id !== id);
+    deleteFactor({ factor_id: id, survey_id: surveyId });
+    setRefresh(true);
   };
 
   return (
@@ -191,13 +194,13 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
       onClose={() => setVisible(false)}
     >
       <CModalHeader className="flex items-center justify-between text-xl font-semibold">
-        مدیریت پارامترها
+        مدیریت عاملها
       </CModalHeader>
       <CModalBody className="p-6 space-y-6 container">
         <div className="flex items-center gap-2">
           <CFormInput
             className="w-full"
-            placeholder="پارامتر"
+            placeholder="عامل"
             value={newParameter.name}
             onChange={(e) =>
               setNewParameter({ ...newParameter, name: e.currentTarget.value })
@@ -223,7 +226,7 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
               disabled
               value=""
             >
-              یک پارامتر را انتخاب کنید
+              یک عامل را انتخاب کنید
             </option>
             {parameters?.map((param) => (
               <option
