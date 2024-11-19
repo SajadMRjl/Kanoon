@@ -68,7 +68,7 @@ export default function UserScoreModal({
 
   const columns = [
     { key: "questionId", label: "شناسه سوال", _style: { width: "20%" } },
-    { key: "answerText", label: "پاسخ", _style: { width: "60%" } },
+    { key: "optionId", label: "پاسخ", _style: { width: "60%" } },
     { key: "score", label: "نمره", _style: { width: "20%" } },
   ];
 
