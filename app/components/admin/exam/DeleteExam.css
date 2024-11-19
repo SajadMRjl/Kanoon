@@ -38,13 +38,8 @@
 
 .container .form-actions .cancel-btn{
     width: 49%;
-    background-color: #F7D4D980;
-    color: #D92641;
-    border: 1px solid #F7D4D980;
 }
 
 .container .form-actions .confirm-btn{
     width: 49%;
-    background-color: #D92641;
-    color: #FFFFFF;
 }

@@ -58,7 +58,7 @@ export default function Output({
   }, [image]);
 
   return (
-    <div className="h-full w-full flex flex-col justify-center items-start">
+    <div className="h-full flex flex-col justify-center items-start mx-4">
       <div className="flex flex-row justify-between items-start w-full gap-6">
         <div className="flex gap-3 justify-center items-start mb-4">
           {index}.

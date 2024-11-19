@@ -18,7 +18,7 @@ export default function Page() {
       <CButton
         className="add-exam-btn"
         type="button"
-        variant="outline"
+        color="secondary"
         onClick={() => setVisible(true)}
       >
         <svg

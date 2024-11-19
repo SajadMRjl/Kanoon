@@ -118,7 +118,7 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
     );
   }, [selectedFactorId, predefinedOptions]);
 
-  const handleSave = async (closeAfterSave: boolean) => {
+  const handleSave = async () => {
     try {
       const optionPromises = newOptions.map((option) => {
         const newOption = {
@@ -139,10 +139,6 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
 
       setSelectedParameterId(null);
       setSelectedFactorId(null);
-
-      if (closeAfterSave) {
-        setVisible(false);
-      }
     } catch (error) {
       console.error("Error saving options:", error);
     }
@@ -279,6 +275,8 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
                   items={[...filteredOptions, ...newOptions]}
                   tableFilter={false}
                   noItemsLabel={"هیچ گزینه ای تعریف نشده است"}
+                  itemsPerPage={4}
+                  pagination
                   scopedColumns={{
                     action: (item: Option) => {
                       return (
@@ -321,16 +319,16 @@ export default function OptionModal({ visible, setVisible }: InputProps) {
       </CModalBody>
       <CModalFooter>
         <CButton
-          color="primary"
-          onClick={() => handleSave(false)}
+          color="secondary"
+          onClick={() => setVisible(false)}
         >
-          ذخیره
+          انصراف
         </CButton>
         <CButton
-          color="primary"
-          onClick={() => handleSave(true)}
+          color="success"
+          onClick={handleSave}
         >
-          ذخیره و بستن
+          ذخیره
         </CButton>
       </CModalFooter>
     </CModal>

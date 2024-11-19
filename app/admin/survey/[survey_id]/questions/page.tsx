@@ -26,6 +26,7 @@ export default function Page() {
         <TypeSelector setVisible={setVisible} />
         <div className="add-parameter">
           <CButton
+            color="primary"
             onClick={() => {
               setParameterVisible(true);
             }}
@@ -44,6 +45,7 @@ export default function Page() {
             عامل ها
           </CButton>
           <CButton
+            color="primary"
             onClick={() => {
               setOptionVisible(true);
             }}

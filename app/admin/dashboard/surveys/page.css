@@ -23,11 +23,4 @@
     gap: 5px;
     flex-direction: row;
     padding: 1rem;
-    background-color: #5046E540;
-    color: #5046E5
-}
-
-.add-survey-btn:hover{
-    background-color: #5046E560;
-    color: #5046E5
 }

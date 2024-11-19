@@ -105,7 +105,7 @@ export default function EditSurvey(inputProps: Props) {
           <div className="form-actions">
             <CButton
               type="button"
-              variant="outline"
+              color="secondary"
               className="cancel-btn"
               onClick={() => inputProps.setVisible(false)}
             >
@@ -115,7 +115,7 @@ export default function EditSurvey(inputProps: Props) {
               loading={isSending}
               disabledOnLoading
               type="button"
-              variant="outline"
+              color="success"
               className="confirm-btn"
               onClick={handleConfirm}
             >

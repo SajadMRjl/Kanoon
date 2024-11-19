@@ -54,15 +54,11 @@
 
 .question-form-action .cancel-btn{
     font-size: 12px;
-    background-color: rgba(59, 54, 142, 0.15);
-    border-color: 1px solid rgb(59, 54, 142);
-    color: rgb(59, 54, 142);
+
 }
 
 .question-form-action .confirm-btn{
     font-size: 12px;
-    background-color: rgb(59, 54, 142);
-    color: #FFFFFF;
 }
 
 .question-type .question-icon{

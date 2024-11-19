@@ -95,6 +95,33 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
     );
   }, [selectedParameterId, parameters, newParameters]);
 
+  useEffect(() => {
+    if (selectedParameter) {
+      const isInParameters = parameters.some(
+        (param) => param.id === selectedParameterId
+      );
+
+      if (isInParameters) {
+        setParameters((prev) =>
+          prev.map((param) =>
+            param.id === selectedParameterId ? { ...selectedParameter } : param
+          )
+        );
+      } else {
+        setNewParameters((prev) =>
+          prev.map((param) =>
+            param.id === selectedParameterId ? { ...selectedParameter } : param
+          )
+        );
+      }
+    }
+
+    setSelectedParameter(
+      parameters.find((param) => param.id === selectedParameterId) ||
+        newParameters.find((param) => param.id === selectedParameterId)
+    );
+  }, [selectedParameterId]);
+
   const handleAddFactor = () => {
     if (!selectedParameterId || !newFactorName) return;
 
@@ -181,10 +208,27 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
   };
 
   const handleRemove = (id: string) => {
-    if (selectedParameter?.factors.find((factor) => factor.id === id))
-      selectedParameter.factors.filter((factor) => factor.id !== id);
-    deleteFactor({ factor_id: id, survey_id: surveyId });
-    setRefresh(true);
+    const isUUID =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        id
+      );
+    if (isUUID) {
+      if (selectedParameter) {
+        const updatedFactors = selectedParameter.factors.filter(
+          (factor) => factor.id !== id
+        );
+
+        const updatedParameter = {
+          ...selectedParameter,
+          factors: updatedFactors,
+        };
+
+        setSelectedParameter(updatedParameter);
+      }
+    } else {
+      deleteFactor({ factor_id: id, survey_id: surveyId });
+      setRefresh(true);
+    }
   };
 
   return (
@@ -282,6 +326,8 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
                   items={selectedParameter.factors}
                   tableFilter={false}
                   noItemsLabel={"هیچ شاخصی تعریف نشده است"}
+                  itemsPerPage={4}
+                  pagination
                   scopedColumns={{
                     action: (item: Factor) => {
                       return (
@@ -315,7 +361,13 @@ export default function ParameterModal({ visible, setVisible }: InputProps) {
       </CModalBody>
       <CModalFooter>
         <CButton
-          color="primary"
+          color="secondary"
+          onClick={() => setVisible(false)}
+        >
+          انصراف
+        </CButton>
+        <CButton
+          color="success"
           onClick={() => handleSave()}
         >
           ذخیره

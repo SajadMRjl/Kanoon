@@ -58,11 +58,11 @@ export default function DeleteSurvey(inputProps: Props) {
           </svg>
           <div className="text">حذف پرسشنامه</div>
         </div>
-        <div className="ensure-text">آیا از حذف شایستگی مطمئن هستید ؟</div>
+        <div className="ensure-text">آیا از حذف پرسشنامه مطمئن هستید ؟</div>
         <div className="form-actions">
           <CButton
             type="button"
-            variant="outline"
+            color="secondary"
             className="cancel-btn"
             onClick={() => inputProps.setVisible(false)}
           >
@@ -72,7 +72,7 @@ export default function DeleteSurvey(inputProps: Props) {
             loading={isSending}
             disabledOnLoading
             type="button"
-            variant="outline"
+            color="danger"
             className="confirm-btn"
             onClick={handleDelete}
           >

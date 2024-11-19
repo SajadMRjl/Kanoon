@@ -201,7 +201,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
         <div className="form-actions">
           <CButton
             type="button"
-            variant="outline"
+            color="secondary"
             className="cancel-btn"
             onClick={() => setVisible(false)}
           >
@@ -211,7 +211,7 @@ export default function EditExam({ visible, setVisible, id }: Props) {
             loading={isSending}
             disabledOnLoading
             type="button"
-            variant="outline"
+            color="success"
             className="confirm-btn"
             onClick={handleConfirm}
           >

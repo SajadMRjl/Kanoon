@@ -201,7 +201,7 @@ export default function AddExamSession({ visible, setVisible }: Props) {
         <div className="form-actions">
           <CButton
             type="button"
-            variant="outline"
+            color="secondary"
             className="cancel-btn"
             onClick={handleClose}
           >
@@ -211,7 +211,7 @@ export default function AddExamSession({ visible, setVisible }: Props) {
             loading={isSending}
             disabledOnLoading
             type="button"
-            variant="outline"
+            color="success"
             className="confirm-btn"
             onClick={handleConfirm}
           >

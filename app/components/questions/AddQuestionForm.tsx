@@ -258,7 +258,7 @@ export default function AddQuestionForm({
         <CButton
           className="cancel-btn"
           type="button"
-          variant="outline"
+          color="secondary"
           onClick={handleClose}
         >
           انصراف
@@ -266,7 +266,7 @@ export default function AddQuestionForm({
         <CLoadingButton
           className="confirm-btn"
           type="button"
-          variant="outline"
+          color="success"
           onClick={handleConfirm}
           loading={loading}
           disabled={question.trim() === "<p><br></p>" || question === ""}

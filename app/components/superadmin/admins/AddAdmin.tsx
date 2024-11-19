@@ -32,13 +32,13 @@ export default function AddAdmin({ visible, setVisible }: Props) {
 
   const handleConfirm = async () => {
     const admin: User = {
-        username: username,
-        email: email,
-        password: password,
-        first_name: first_name,
-        last_name: last_name,
-        phone_number: phone_number,
-        identity_code: identity_code,
+      username: username,
+      email: email,
+      password: password,
+      first_name: first_name,
+      last_name: last_name,
+      phone_number: phone_number,
+      identity_code: identity_code,
     };
 
     try {
@@ -160,7 +160,7 @@ export default function AddAdmin({ visible, setVisible }: Props) {
         <div className="form-actions">
           <CButton
             type="button"
-            variant="outline"
+            color="secondary"
             className="cancel-btn"
             onClick={() => setVisible(false)}
           >
@@ -168,6 +168,7 @@ export default function AddAdmin({ visible, setVisible }: Props) {
           </CButton>
           <CLoadingButton
             className="confirm-btn"
+            color="success"
             onClick={handleConfirm}
             loading={isSending}
             disabledOnLoading

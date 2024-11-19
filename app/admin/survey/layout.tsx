@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           height={50}
         />
         <CButton
-          variant="outline"
+          color="primary"
           type="button"
           href="/admin/dashboard"
           className="dashboard-btn px-4 py-2 rounded-lg"

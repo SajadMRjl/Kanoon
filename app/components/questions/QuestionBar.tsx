@@ -102,7 +102,7 @@ export default function QuestionBar({
       ) : (
         <CButton
           type="button"
-          variant="outline"
+          color="primary"
           onClick={() => handleClick("OPENING")}
         >
           <svg
@@ -153,7 +153,7 @@ export default function QuestionBar({
       ) : (
         <CButton
           type="button"
-          variant="outline"
+          color="primary"
           onClick={() => handleClick("ENDING")}
         >
           <svg

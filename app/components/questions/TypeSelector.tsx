@@ -42,7 +42,7 @@ export default function TypeSelector({ setVisible }: InputProps) {
             key={btn.type}
             className="btn-item"
             type="button"
-            variant="outline"
+            color="primary"
             onClick={() => handleClick(btn.type)}
           >
             <div className="icon">{btn.icon}</div>

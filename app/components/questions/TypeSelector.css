@@ -6,8 +6,6 @@
     
 }
 .btn-container .btn-item{
-    background-color: #1F2937;
-    color: #FFFFFF;
     display: flex;
     flex-direction: row;
     align-items: center;

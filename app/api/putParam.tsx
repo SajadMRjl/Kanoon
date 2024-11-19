@@ -17,9 +17,16 @@ async function updateParameter(
   });
 
   try {
-    const factors = parameter.factors.map((factor) => ({
-      name: factor.name,
-    }));
+    const factors = parameter.factors.map((factor) => {
+      // Exclude `id` if it's a UUID
+      const isUUID =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+          factor.id
+        );
+      return isUUID
+        ? { name: factor.name } // Exclude `id` for UUID
+        : { id: factor.id, name: factor.name }; // Include `id` otherwise
+    });
     const response = await api.put(
       `/surveys/${surveyId}/parameter/${parameterId}`,
       { name: parameter.name, factors: factors }

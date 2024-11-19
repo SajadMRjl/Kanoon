@@ -66,7 +66,7 @@ export default function DeleteSession(inputProps: Props) {
         <div className="form-actions">
           <CButton
             type="button"
-            variant="outline"
+            color="secondary"
             className="cancel-btn"
             onClick={() => inputProps.setVisible(false)}
           >
@@ -76,7 +76,7 @@ export default function DeleteSession(inputProps: Props) {
             loading={isSending}
             disabledOnLoading
             type="button"
-            variant="outline"
+            color="danger"
             className="confirm-btn"
             onClick={handleDelete}
           >
