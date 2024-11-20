@@ -16,6 +16,8 @@
     "@coreui/react": "^5.1.0",
     "@coreui/react-pro": "^5.2.0",
     "axios": "^1.7.2",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
     "http-proxy-middleware": "^3.0.0",
     "jalaali-js": "^1.2.7",
     "jalali-moment": "^3.3.11",

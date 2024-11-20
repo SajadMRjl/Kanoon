@@ -1,12 +1,11 @@
-.login-page{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url("../../public/daneshgah.aacc7613.webp");
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("../../public/loginback.jpg");
 }
-
